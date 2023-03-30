@@ -41,7 +41,7 @@
 	
 	Изучите [документ](http://www.smallo.ruhr.de/award.html) о других подобных некорректных вариантах использования pipe.
 
-	> Альтернативой будет выражение grep <some string> <some file> -c Показывает количество строк с совпадениями.
+	> Альтернативой будет выражение 'grep <some string> <some file> -c' Показывает количество строк с совпадениями.
 
 3. Какой процесс с PID `1` является родителем для всех процессов в вашей виртуальной машине Ubuntu 20.04?
 	![Команда pstree -p](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-02-terminal/1.png)
