@@ -45,7 +45,7 @@
 
 3. Какой процесс с PID `1` является родителем для всех процессов в вашей виртуальной машине Ubuntu 20.04?
 
-	![Команда pstree -p](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-02-terminal/1.png)
+	![Команда pstree -p](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-02-terminal/2.png)
 	
 	>Команда pstree -p указывает что этим процессом является systemd
 
