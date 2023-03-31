@@ -70,7 +70,7 @@
 	Напоминаем: по умолчанию через pipe передаётся только stdout команды слева от `|` на stdin команды справа.
 Это можно сделать, поменяв стандартные потоки местами через промежуточный новый дескриптор, который вы научились создавать в предыдущем вопросе.
 
-	!(https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-02-terminal/6.png)
+	![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-02-terminal/6.png)
 
 1. Что выведет команда `cat /proc/$$/environ`? Как ещё можно получить аналогичный по содержанию вывод?
 
