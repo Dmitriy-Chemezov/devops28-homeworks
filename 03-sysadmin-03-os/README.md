@@ -27,7 +27,7 @@
 
     Вам нужно найти тот единственный, который относится именно к `cd`. Обратите внимание, что `strace` выдаёт результат своей работы в поток stderr, а не в stdout.
 
-    > `strace -o output.log /bin/bash -c 'cd /tmp' && egrep *tmp output.log`  Ответ `chdir("/tmp") = 0`
+    > `strace -o output.log /bin/bash -c 'cd /tmp' && egrep *tmp output.log`    Ответ `chdir("/tmp") = 0`
     
     ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-03-os/1.png)
 
@@ -44,6 +44,10 @@
     ```
     
     Используя `strace`, выясните, где находится база данных `file`, на основании которой она делает свои догадки.
+
+    > `strace -o output.log /bin/bash -c 'file /bin/bash' && cat output.log | grep magic`   База данных команды `file` находится в /usr/share/misc/magic.mgc
+    
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-03-os/2.png)
 
 1. Предположим, приложение пишет лог в текстовый файл. Этот файл оказался удалён (deleted в lsof), но сказать сигналом приложению переоткрыть файлы или просто перезапустить приложение возможности нет. Так как приложение продолжает писать в удалённый файл, место на диске постепенно заканчивается. Основываясь на знаниях о перенаправлении потоков, предложите способ обнуления открытого удалённого файла, чтобы освободить место на файловой системе.
 
