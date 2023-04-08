@@ -27,6 +27,11 @@
 
     Вам нужно найти тот единственный, который относится именно к `cd`. Обратите внимание, что `strace` выдаёт результат своей работы в поток stderr, а не в stdout.
 
+    > `strace -o output.log /bin/bash -c 'cd /tmp' && egrep *tmp output.log`  Ответ `chdir("/tmp") = 0`
+    
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-03-os/1.png)
+
+
 1. Попробуйте использовать команду `file` на объекты разных типов в файловой системе. Например:
 
     ```bash
