@@ -40,7 +40,9 @@
   
    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-04-os/3.png)
 
+   > Можно добавит в конфигурацию выборку по метрике:
    
+   ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-04-os/4.png)
 
 1. Установите в свою виртуальную машину [Netdata](https://github.com/netdata/netdata). Воспользуйтесь [готовыми пакетами](https://packagecloud.io/netdata/netdata/install) для установки (`sudo apt install -y netdata`). 
    
