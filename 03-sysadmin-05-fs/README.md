@@ -114,19 +114,31 @@
 
 1. Создайте два независимых PV на получившихся md-устройствах.
 
-    
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/6.png)
 
 1. Создайте общую volume-group на этих двух PV.
 
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/7.png)
+
 1. Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
+
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/8.png)
 
 1. Создайте `mkfs.ext4` ФС на получившемся LV.
 
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/9.png)
+
 1. Смонтируйте этот раздел в любую директорию, например, `/tmp/new`.
+
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/10.png)
 
 1. Поместите туда тестовый файл, например, `wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz`.
 
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/11.png)
+
 1. Прикрепите вывод `lsblk`.
+
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/12.png)
 
 1. Протестируйте целостность файла:
 
@@ -136,7 +148,11 @@
     0
     ```
 
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/13.png)
+
 1. Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
+
+    
 
 1. Сделайте `--fail` на устройство в вашем RAID1 md.
 
