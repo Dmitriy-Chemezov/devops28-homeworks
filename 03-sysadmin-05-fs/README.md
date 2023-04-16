@@ -152,11 +152,15 @@
 
 1. Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
 
-    
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/14.png)
 
 1. Сделайте `--fail` на устройство в вашем RAID1 md.
 
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/15.png)
+
 1. Подтвердите выводом `dmesg`, что RAID1 работает в деградированном состоянии.
+
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/16.png)
 
 1. Протестируйте целостность файла — он должен быть доступен несмотря на «сбойный» диск:
 
@@ -165,9 +169,12 @@
     root@vagrant:~# echo $?
     0
     ```
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/17.png)
 
 1. Погасите тестовый хост — `vagrant destroy`.
  
+    ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-05-fs/18.png)
+
 *В качестве решения пришлите ответы на вопросы и опишите, как они были получены.*
 
 ----
