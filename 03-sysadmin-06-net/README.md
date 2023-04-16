@@ -61,6 +61,18 @@ HOST: stackoverflow.com
  - проверьте время загрузки страницы и определите, какой запрос обрабатывался дольше всего;
  - приложите скриншот консоли браузера в ответ.
 
+ > В ответ получили код `307 Internal Redirect`. HTTP код перенаправления 307 Temporary Redirect означает, что запрошенный ресурс был временно перемещён в URL-адрес, указанный в заголовке Location (en-US).
+ 
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/2.png)
+ 
+ > Время загрузки страницы завершилось за 581 мс.
+
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/3.png)
+ 
+ > Самый долгий запрос загрузка первоначальной страницы.
+
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/4.png)
+
 **Шаг 3.** Какой IP-адрес у вас в интернете?
 
 **Шаг 4.** Какому провайдеру принадлежит ваш IP-адрес? Какой автономной системе AS? Воспользуйтесь утилитой `whois`.
