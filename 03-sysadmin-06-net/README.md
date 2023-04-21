@@ -75,13 +75,27 @@ HOST: stackoverflow.com
 
 **Шаг 3.** Какой IP-адрес у вас в интернете?
 
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/5.png)
+
 **Шаг 4.** Какому провайдеру принадлежит ваш IP-адрес? Какой автономной системе AS? Воспользуйтесь утилитой `whois`.
+
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/6.png)
 
 **Шаг 5.** Через какие сети проходит пакет, отправленный с вашего компьютера на адрес 8.8.8.8? Через какие AS? Воспользуйтесь утилитой `traceroute`.
 
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/7.png)
+ 
+  > Пакет проходит через AS - AS5480 и AS15169
+
 **Шаг 6.** Повторите задание 5 в утилите `mtr`. На каком участке наибольшая задержка — delay?
 
+  ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/8.png)
+  
+  > Самая большая задержка на 11 участке.
+
 **Шаг 7.** Какие DNS-сервера отвечают за доменное имя dns.google? Какие A-записи? Воспользуйтесь утилитой `dig`.
+
+ 
 
 **Шаг 8.** Проверьте PTR записи для IP-адресов из задания 7. Какое доменное имя привязано к IP? Воспользуйтесь утилитой `dig`.
 
