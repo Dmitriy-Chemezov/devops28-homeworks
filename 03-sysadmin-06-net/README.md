@@ -95,9 +95,11 @@ HOST: stackoverflow.com
 
 **Шаг 7.** Какие DNS-сервера отвечают за доменное имя dns.google? Какие A-записи? Воспользуйтесь утилитой `dig`.
 
- 
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/9.png) 
 
 **Шаг 8.** Проверьте PTR записи для IP-адресов из задания 7. Какое доменное имя привязано к IP? Воспользуйтесь утилитой `dig`.
+
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-06-net/10.png)
 
 *В качестве ответов на вопросы приложите лог выполнения команд в консоли или скриншот полученных результатов.*
 
