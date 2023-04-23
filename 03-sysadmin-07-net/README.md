@@ -113,6 +113,21 @@ iface bond0 inet static
 
 7. Как проверить ARP-таблицу в Linux, Windows? Как очистить ARP-кеш полностью? Как из ARP-таблицы удалить только один нужный IP?
 
+ Проверить таблицу можно так:
+
+- Linux: `ip neigh`, `arp -n`
+- Windows: `arp -a`
+
+Очистить кеш так:
+
+- Linux: `ip neigh flush`
+- Windows: `arp -d *`
+
+Удалить один IP так:
+
+- Linux: `ip neigh delete <IP> dev <INTERFACE>`, `arp -d <IP>`
+- Windows: `arp -d <IP>`
+
 *В качестве решения отправьте ответы на вопросы и опишите, как они были получены.*
 
 ---
