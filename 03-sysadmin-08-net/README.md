@@ -224,11 +224,34 @@ route-views>
 
 2. Создайте dummy-интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 
+```
+vagrant@ubuntu-01:~$ sudo ip link add dummy0 type dummy
+vagrant@ubuntu-01:~$ sudo ip addr add 10.0.3.1/24 dev dummy0
+vagrant@ubuntu-01:~$ sudo ip link set dummy0 up
+vagrant@ubuntu-01:~$ sudo ip route add to 10.1.0.0/16 via 10.0.3.1
+vagrant@ubuntu-01:~$ sudo ip route add to 10.2.0.0/16 via 10.0.3.1
+vagrant@ubuntu-01:~$ ip route
+default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100 
+10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 
+10.0.2.2 dev eth0 proto dhcp scope link src 10.0.2.15 metric 100 
+10.0.3.0/24 dev dummy0 proto kernel scope link src 10.0.3.1 
+10.1.0.0/16 via 10.0.3.1 dev dummy0 
+10.2.0.0/16 via 10.0.3.1 dev dummy0 
+192.168.56.0/24 dev eth1 proto kernel scope link src 192.168.56.3 
+vagrant@ubuntu-01:~$ 
+```
+
 3. Проверьте открытые TCP-порты в Ubuntu. Какие протоколы и приложения используют эти порты? Приведите несколько примеров.
+
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-08-net/1.png)
 
 4. Проверьте используемые UDP-сокеты в Ubuntu. Какие протоколы и приложения используют эти порты?
 
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-08-net/2.png)
+
 5. Используя diagrams.net, создайте L3-диаграмму вашей домашней сети или любой другой сети, с которой вы работали. 
+
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-08-net/3.png)
 
 *В качестве решения пришлите ответы на вопросы, опишите, как они были получены, и приложите скриншоты при необходимости.*
 
