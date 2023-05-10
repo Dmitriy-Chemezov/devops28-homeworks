@@ -45,15 +45,16 @@
 
 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH-клиента так, чтобы вход на удалённый сервер осуществлялся по имени сервера.
 
- ` vagrant@ubuntu-01:~$ sudo mv ~/.ssh/id_rsa ~/.ssh/id_rsa_test`
+ `vagrant@ubuntu-01:~$ sudo mv ~/.ssh/id_rsa ~/.ssh/id_rsa_test`
  
  ` vagrant@ubuntu-01:~$ sudo nano ~/.ssh/config `
- > Host vm-test    
+ ```
+ Host vm-test    
         HostName 192.168.56.4 
         User user   
         Port 22
         IdentityFile ~/.ssh/id_rsa_test 
-        
+ ```       
  ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-09-security/6.png)        
 
 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
