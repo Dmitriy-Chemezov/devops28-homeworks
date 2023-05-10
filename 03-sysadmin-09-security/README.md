@@ -59,6 +59,8 @@
 
 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
 
+ ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/03-sysadmin-09-security/7.png)
+
 *В качестве решения приложите: скриншоты, выполняемые команды, комментарии (при необходимости).*
 
  ---
