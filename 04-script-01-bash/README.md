@@ -90,7 +90,22 @@ done
 ### Ваш скрипт:
 
 ```bash
-???
+#!/usr/bin/env bash
+hosts_IP=(192.168.31.1 173.194.222.113 87.250.250.242)
+for IP in ${hosts_IP[@]}
+    do
+        for L in {1..5}
+            do 
+                echo -n $IP $(date "+%D %T") >> test.log
+                curl "$IP:80"
+                if [ $? != 0 ]
+                then
+                echo " failed" >> test.log
+                else
+                echo " OK" >> test.log
+                fi
+            done
+    done
 ```
 
 ---
@@ -101,7 +116,23 @@ done
 ### Ваш скрипт:
 
 ```bash
-???
+#!/usr/bin/env bash
+hosts_IP=(192.168.31.1 173.194.222.113 87.250.250.241)
+while ((1==1))
+    do
+        for IP in ${hosts_IP[@]}
+            do
+                curl -m 10 -s "$IP:80"
+                if [ $? == 0 ]
+                then
+                echo $IP $(date "+%D %T") " OK" >> test.log
+                sleep 1
+                else
+                echo $IP $(date "+%D %T") " failed" >> error.log
+                exit
+                fi
+            done
+    done
 ```
 
 ---
