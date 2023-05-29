@@ -91,9 +91,9 @@ python3.11 test1.py
 
 
 ```
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/1.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/2.png)
+
+
 
 ------
 
