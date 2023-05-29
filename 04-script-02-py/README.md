@@ -75,12 +75,11 @@ import os
 indir = "~/netology/devops28-homeworks"
 bash_command = [f"cd {indir}", "git status"]
 result_os = os.popen(' && '.join(bash_command)).read()
-print(result_os)
-is_change = False
 for result in result_os.split('\n'):
-    if result.find('modified') != -1:
-        result_out = result.replace('modified:', indir)
+    if result.find('изменено') != -1:
+        result_out = result.replace('изменено:', indir)
         print(result_out)
+
 
 ```
 
