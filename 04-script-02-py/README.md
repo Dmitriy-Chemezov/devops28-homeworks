@@ -86,15 +86,9 @@ for result in result_os.split('\n'):
 ### Вывод скрипта при запуске во время тестирования:
 
 ```
-Текущая ветка: main
-Эта ветка соответствует «origin/main».
+python3.11 test1.py 
+	~/netology/devops28-homeworks      04-script-02-py/README.md
 
-Изменения, которые не в индексе для коммита:
-  (используйте «git add <файл>...», чтобы добавить файл в индекс)
-  (используйте «git restore <файл>...», чтобы отменить изменения в рабочем каталоге)
-	изменено:      04-script-02-py/README.md
-
-индекс пуст (используйте «git add» и/или «git commit -a»)
 
 ```
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/1.png)
