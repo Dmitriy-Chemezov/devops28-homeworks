@@ -68,14 +68,39 @@ for result in result_os.split('\n'):
 ### Ваш скрипт:
 
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+
+indir = "~/netology/devops28-homeworks"
+bash_command = [f"cd {indir}", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+print(result_os)
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        result_out = result.replace('modified:', indir)
+        print(result_out)
+
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
 
 ```
-???
+Текущая ветка: main
+Эта ветка соответствует «origin/main».
+
+Изменения, которые не в индексе для коммита:
+  (используйте «git add <файл>...», чтобы добавить файл в индекс)
+  (используйте «git restore <файл>...», чтобы отменить изменения в рабочем каталоге)
+	изменено:      04-script-02-py/README.md
+
+индекс пуст (используйте «git add» и/или «git commit -a»)
+
 ```
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/1.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/2.png)
 
 ------
 
