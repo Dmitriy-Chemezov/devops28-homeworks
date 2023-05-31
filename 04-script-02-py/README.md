@@ -133,12 +133,12 @@ if indir != "":
 ### Вывод скрипта при запуске во время тестирования:
 
 ```
-`python3.11 test7.py ~/netology/devops28-homeworks
-	/home/odin/netology/devops28-homeworks      04-script-02-py/README.md`
-`  python3.11 test7.py ~/netology
-Данная директория не является git-репозиторием`
-`~ python3.11 test7.py 
-Вы не задали директорию для поиска`
+~ python3.11 test7.py ~/netology/devops28-homeworks
+	/home/odin/netology/devops28-homeworks      04-script-02-py/README.md
+~ python3.11 test7.py ~/netology
+Данная директория не является git-репозиторием
+~ python3.11 test7.py 
+Вы не задали директорию для поиска
 
 ```
 
@@ -149,8 +149,6 @@ if indir != "":
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/5.png)
 
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/6.png)
-
-
 
 ------
 
