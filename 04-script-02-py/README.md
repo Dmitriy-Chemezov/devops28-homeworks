@@ -104,13 +104,50 @@ python3.11 test1.py
 ### Ваш скрипт:
 
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+import sys
+
+indir = ""
+try:
+    indir = sys.argv[1]
+except:
+    print("Вы не задали директорию для поиска")
+
+if indir != "":
+        bash_command = [f"cd {indir}",  "git status "]
+        res = os.listdir(indir);
+
+        if res.__contains__(".git"):
+                result_os = os.popen(' && '.join(bash_command)).read()
+                for result in result_os.split('\n'):
+                    if result.find('изменено') != -1:
+                        prepare_result = result.replace('изменено:', indir)
+                        print(prepare_result)
+        else:
+                print("Данная директория не является git-репозиторием")
+
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
 
 ```
-???
+`python3.11 test7.py ~/netology/devops28-homeworks
+	/home/odin/netology/devops28-homeworks      04-script-02-py/README.md`
+`  python3.11 test7.py ~/netology
+Данная директория не является git-репозиторием`
+`~ python3.11 test7.py 
+Вы не задали директорию для поиска`
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/3.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/4.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/5.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/6.png)
+
 ```
 
 ------
