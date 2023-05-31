@@ -169,14 +169,62 @@ if indir != "":
 ### Ваш скрипт:
 
 ```python
-???
+#!/usr/bin/env python3
+
+import socket as s
+import time as t
+import datetime as dt
+
+wait = 5 # интервал проверок
+serv = {'drive.google.com':'0.0.0.0', 'mail.google.com':'0.0.0.0', 'google.com':'0.0.0.0'}
+
+print('*** start ***')
+print(serv)
+print('********************')
+
+while 1==1 : # бесконечный цикл
+  for host in serv:
+    ip = s.gethostbyname(host)
+    if ip != serv[host]:
+      print(str(dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +' [ERROR] ' + str(host) +' IP mistmatch: '+serv[host]+' '+ip)
+      serv[host]=ip
+  t.sleep(wait)
+
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
 
 ```
-???
+  ~ python3.11 test9.py 
+*** start ***
+{'drive.google.com': '0.0.0.0', 'mail.google.com': '0.0.0.0', 'google.com': '0.0.0.0'}
+********************
+2023-05-31 18:59:33 [ERROR] drive.google.com IP mistmatch: 0.0.0.0 173.194.73.194
+2023-05-31 18:59:33 [ERROR] mail.google.com IP mistmatch: 0.0.0.0 64.233.161.83
+2023-05-31 18:59:33 [ERROR] google.com IP mistmatch: 0.0.0.0 173.194.222.113
+2023-05-31 18:59:38 [ERROR] mail.google.com IP mistmatch: 64.233.161.83 64.233.161.17
+2023-05-31 18:59:38 [ERROR] google.com IP mistmatch: 173.194.222.113 173.194.222.102
+2023-05-31 18:59:43 [ERROR] mail.google.com IP mistmatch: 64.233.161.17 64.233.161.18
+2023-05-31 18:59:43 [ERROR] google.com IP mistmatch: 173.194.222.102 173.194.222.101
+2023-05-31 18:59:48 [ERROR] mail.google.com IP mistmatch: 64.233.161.18 64.233.161.19
+2023-05-31 18:59:48 [ERROR] google.com IP mistmatch: 173.194.222.101 173.194.222.138
+2023-05-31 18:59:53 [ERROR] mail.google.com IP mistmatch: 64.233.161.19 64.233.161.83
+2023-05-31 18:59:53 [ERROR] google.com IP mistmatch: 173.194.222.138 173.194.222.100
+2023-05-31 18:59:58 [ERROR] mail.google.com IP mistmatch: 64.233.161.83 64.233.161.17
+2023-05-31 18:59:58 [ERROR] google.com IP mistmatch: 173.194.222.100 173.194.222.139
+2023-05-31 19:00:03 [ERROR] mail.google.com IP mistmatch: 64.233.161.17 64.233.161.18
+2023-05-31 19:00:03 [ERROR] google.com IP mistmatch: 173.194.222.139 64.233.162.139
+2023-05-31 19:00:08 [ERROR] mail.google.com IP mistmatch: 64.233.161.18 64.233.161.19
+2023-05-31 19:00:08 [ERROR] google.com IP mistmatch: 64.233.162.139 64.233.162.138
+^CTraceback (most recent call last):
+  File "/home/odin/test9.py", line 20, in <module>
+    t.sleep(wait)
+KeyboardInterrupt
+
 ```
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/7.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/8.png)
 
 ------
 
