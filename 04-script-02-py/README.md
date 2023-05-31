@@ -140,6 +140,8 @@ if indir != "":
 `~ python3.11 test7.py 
 Вы не задали директорию для поиска`
 
+```
+
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/3.png)
 
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/4.png)
@@ -148,7 +150,7 @@ if indir != "":
 
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/04-script-02-py/6.png)
 
-```
+
 
 ------
 
