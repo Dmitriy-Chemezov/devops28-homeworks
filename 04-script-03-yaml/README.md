@@ -86,25 +86,92 @@
 ### Ваш скрипт:
 
 ```python
-???
+# !/usr/bin/env python3
+
+import socket as s
+import time as t
+import datetime as dt
+import json
+import yaml
+
+# VARS
+wait = 2 # интервал проверок в секундах
+serv = {'drive.google.com':'0.0.0.0', 'mail.google.com':'0.0.0.0', 'google.com':'0.0.0.0'}
+
+print('*** start ***')
+print(serv)
+print('********************')
+
+while True : # бесконечный цикл
+  for host in serv:
+    ip = s.gethostbyname(host)
+    data = [{host : ip}]
+    if ip != serv[host]:
+      print(str(dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +' [ERROR] ' + str(host) +' IP mistmatch: '+serv[host]+' '+ip)
+# json
+      with open(host+".json",'w') as jsonfile:
+          json_data=json.dump(data,jsonfile)
+# yaml
+      with open(host+".yaml",'w') as yamlfile:
+          yaml_data= yaml.dump(data,yamlfile)
+      serv[host]=ip
+  t.sleep(wait)
+
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
 
 ```
-???
+/home/odin/CodePy/HomeWorks/venv/bin/python /home/odin/CodePy/HomeWorks/task4.py 
+*** start ***
+{'drive.google.com': '0.0.0.0', 'mail.google.com': '0.0.0.0', 'google.com': '0.0.0.0'}
+********************
+2023-06-05 20:59:05 [ERROR] drive.google.com IP mistmatch: 0.0.0.0 74.125.205.194
+2023-06-05 20:59:05 [ERROR] mail.google.com IP mistmatch: 0.0.0.0 64.233.162.17
+2023-06-05 20:59:06 [ERROR] google.com IP mistmatch: 0.0.0.0 64.233.165.100
+2023-06-05 20:59:08 [ERROR] mail.google.com IP mistmatch: 64.233.162.17 64.233.162.18
+2023-06-05 20:59:08 [ERROR] google.com IP mistmatch: 64.233.165.100 64.233.165.138
+2023-06-05 20:59:10 [ERROR] mail.google.com IP mistmatch: 64.233.162.18 64.233.162.19
+2023-06-05 20:59:10 [ERROR] google.com IP mistmatch: 64.233.165.138 64.233.165.139
+2023-06-05 20:59:12 [ERROR] mail.google.com IP mistmatch: 64.233.162.19 64.233.162.83
+2023-06-05 20:59:12 [ERROR] google.com IP mistmatch: 64.233.165.139 64.233.165.113
 ```
 
 ### JSON-файл(ы), который(е) записал ваш скрипт:
 
 ```json
-???
+➜  HomeWorks cat drive.google.com.json 
+[{"drive.google.com": "74.125.205.194"}]% 
+➜  HomeWorks cat google.com.json 
+[{"google.com": "64.233.165.113"}]%   
+➜  HomeWorks cat mail.google.com.json
+[{"mail.google.com": "64.233.162.83"}]% 
+➜  HomeWorks cat servers_ip.json     
+{
+  "drive.google.com": [],
+  "mail.google.com": [],
+  "google.com": []
+}%   
+➜  HomeWorks  
+
 ```
 
 ### YAML-файл(ы), который(е) записал ваш скрипт:
 
 ```yaml
-???
+➜  HomeWorks cat drive.google.com.yaml 
+- drive.google.com: 74.125.205.194
+➜  HomeWorks cat google.com.yaml 
+- google.com: 64.233.165.113
+➜  HomeWorks cat mail.google.com.yaml
+- mail.google.com: 64.233.162.83
+➜  HomeWorks cat servers_ip.yaml     
+---
+drive.google.com: []
+google.com: []
+mail.google.com: []
+...
+
 ```
 
 ---
