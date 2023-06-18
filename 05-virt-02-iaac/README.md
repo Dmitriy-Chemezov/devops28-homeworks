@@ -39,16 +39,48 @@
 ## Задача 2
 
 - Чем Ansible выгодно отличается от других систем управление конфигурациями?
+
+Его основные преимущества это использование SSH инфраструктуры без установки дополнительного окружения, а также наличие большого количества модулей.
+  
 - Какой, на ваш взгляд, метод работы систем конфигурации более надёжный — push или pull?
+
+Система конфигурации pull требует установки агентов на управляемых серверах и более подходит для небольшого количества управляемых сервреров, когда есть возможность установки данных агентов на все окружение.
+
+Система конфигурации push не требует установки агентов и может работать с окружением без установки дополнительного софта. Больше подходит для работы с большим количеством управляемых серверов.
 
 ## Задача 3
 
 Установите на личный компьютер:
 
 - [VirtualBox](https://www.virtualbox.org/),
-- [Vagrant](https://github.com/netology-code/devops-materials),
+```
+odin@ASUS-TUF-Gaming:~$ vboxmanage --version
+6.1.40r154048
+```
+
+- [Vagrant](https://github.com/netology-code/devops-materials),  
+```
+odin@ASUS-TUF-Gaming:~$ vagrant -v
+Vagrant 2.2.19
+```
+
 - [Terraform](https://github.com/netology-code/devops-materials/blob/master/README.md),
+```
+odin@ASUS-TUF-Gaming:~$ terraform --version
+Terraform v1.5.0
+on linux_amd64
+```
+
 - Ansible.
+```
+odin@ASUS-TUF-Gaming:~$ ansible --version
+ansible 2.10.8
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/home/odin/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 3.10.6 (main, May 29 2023, 11:10:38) [GCC 11.3.0]
+```
 
 *Приложите вывод команд установленных версий каждой из программ, оформленный в Markdown.*
 
@@ -62,6 +94,11 @@
 docker ps,
 ```
 Vagrantfile из лекции и код ansible находятся в [папке](https://github.com/netology-code/virt-homeworks/tree/virt-11/05-virt-02-iaac/src).
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-02-iaac/1.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-02-iaac/2.png)
+
 
 Примечание. Если Vagrant выдаёт ошибку:
 ```
