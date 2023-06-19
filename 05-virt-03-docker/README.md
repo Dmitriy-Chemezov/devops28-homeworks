@@ -45,7 +45,7 @@ Hey, Netology
 
 Опубликуйте созданный fork в своём репозитории и предоставьте ответ в виде ссылки на https://hub.docker.com/username_repo.
 
-https://hub.docker.com/layers/chemezovd/netology/v2/images/sha256-f5d5a7fcf79227330d5f75351c263ed9efa1f2553cb6c63328efaccc77862434?context=repo
+[Ссылка на образ](https://hub.docker.com/layers/chemezovd/netology/v2/images/sha256-f5d5a7fcf79227330d5f75351c263ed9efa1f2553cb6c63328efaccc77862434?context=repo)
 
 ## Задача 2
 
