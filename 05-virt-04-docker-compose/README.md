@@ -28,6 +28,8 @@
 
 Чтобы получить зачёт, вам нужно предоставить скриншот страницы с созданным образом из личного кабинета YandexCloud.
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-04-docker-compose/1.png)
+
 ## Задача 2
 
 **2.1.** Создайте вашу первую виртуальную машину в YandexCloud с помощью web-интерфейса YandexCloud.        
