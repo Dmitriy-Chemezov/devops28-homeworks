@@ -32,7 +32,9 @@
 
 ## Задача 2
 
-**2.1.** Создайте вашу первую виртуальную машину в YandexCloud с помощью web-интерфейса YandexCloud.        
+**2.1.** Создайте вашу первую виртуальную машину в YandexCloud с помощью web-интерфейса YandexCloud. 
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-04-docker-compose/3.png)
 
 **2.2.*** **(Необязательное задание)**      
 Создайте вашу первую виртуальную машину в YandexCloud с помощью Terraform (вместо использования веб-интерфейса YandexCloud).
