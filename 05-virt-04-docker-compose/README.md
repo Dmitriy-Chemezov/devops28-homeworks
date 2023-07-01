@@ -81,7 +81,7 @@ Terraform will perform the following actions:
           + initialize_params {
               + block_size  = (known after apply)
               + description = (known after apply)
-              + image_id    = "fd8u6l79q3u0qgng9fis"
+              + image_id    = "fd8hl1195hnbedemvf1q"
               + name        = "root-node01"
               + size        = 50
               + snapshot_id = (known after apply)
@@ -149,26 +149,27 @@ Do you want to perform these actions?
   Enter a value: yes
 
 yandex_vpc_network.default: Creating...
-yandex_vpc_network.default: Creation complete after 1s [id=enp30cg3k2epfdgsgt2n]
+yandex_vpc_network.default: Creation complete after 2s [id=enpni9e1iphe0mpotlsk]
 yandex_vpc_subnet.default: Creating...
-yandex_vpc_subnet.default: Creation complete after 1s [id=e9bkp6al383ti4g566df]
+yandex_vpc_subnet.default: Creation complete after 1s [id=e9bkeacmvfd4gp0o9o5t]
 yandex_compute_instance.node01: Creating...
 yandex_compute_instance.node01: Still creating... [10s elapsed]
 yandex_compute_instance.node01: Still creating... [20s elapsed]
 yandex_compute_instance.node01: Still creating... [30s elapsed]
 yandex_compute_instance.node01: Still creating... [40s elapsed]
 yandex_compute_instance.node01: Still creating... [50s elapsed]
-yandex_compute_instance.node01: Creation complete after 53s [id=fhmhoqq3aupdlltn2d3f]
+yandex_compute_instance.node01: Creation complete after 57s [id=fhmhi2f467dn5r707h44]
 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.                                                
                                                                                                            
 Outputs:                                                                                                   
                                                                                                            
-external_ip_address_node01_yandex_cloud = "84.252.131.176"                                                 
-internal_ip_address_node01_yandex_cloud = "192.168.101.27"
+external_ip_address_node01_yandex_cloud = "158.160.112.22"                                                 
+internal_ip_address_node01_yandex_cloud = "192.168.101.21"
                                                                                                            
 ┌──(odin㉿sys-adm)-[~/cloud-terraform]
 └─$ 
+
 ```
 
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-04-docker-compose/6.png)
