@@ -180,6 +180,8 @@ internal_ip_address_node01_yandex_cloud = "192.168.101.27"
 
 Чтобы получить зачёт, вам нужно предоставить вывод команды "docker ps" , все контейнеры, описанные в [docker-compose](https://github.com/netology-group/virt-homeworks/blob/virt-11/05-virt-04-docker-compose/src/ansible/stack/docker-compose.yaml),  должны быть в статусе "Up".
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-04-docker-compose/4.png)
+
 ## Задача 4
 
 1. Откройте веб-браузер, зайдите на страницу http://<внешний_ip_адрес_вашей_ВМ>:3000.
