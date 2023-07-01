@@ -196,6 +196,8 @@ internal_ip_address_node01_yandex_cloud = "192.168.101.27"
   <img width="1200" height="600" src="./assets/yc_02.png">
 </p>
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-04-docker-compose/5.png)
+
 ## Задача 5 (*)
 
 Создайте вторую ВМ и подключите её к мониторингу, развёрнутому на первом сервере.
