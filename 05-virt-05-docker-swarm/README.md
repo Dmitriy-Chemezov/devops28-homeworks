@@ -51,6 +51,7 @@ Overlay network создаёт распределенную сеть между 
 ```
 docker node ls
 ```
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-05-docker-swarm/1.png)
 
 ## Задача 3
 
