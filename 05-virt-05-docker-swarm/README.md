@@ -53,6 +53,8 @@ docker node ls
 ```
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-05-docker-swarm/1.png)
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-05-docker-swarm/2.png)
+
 ## Задача 3
 
 Создайте ваш первый, готовый к боевой эксплуатации кластер мониторинга, состоящий из стека микросервисов.
@@ -61,6 +63,7 @@ docker node ls
 ```
 docker service ls
 ```
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/05-virt-05-docker-swarm/3.png)
 
 ## Задача 4 (*)
 
