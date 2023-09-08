@@ -266,6 +266,17 @@ test_db=#
 
 Приведите получившийся результат и объясните, что значат полученные значения.
 
+```
+test_db=# EXPLAIN select * from clients where order_id is not null;
+                        QUERY PLAN                         
+-----------------------------------------------------------
+ Seq Scan on clients  (cost=0.00..18.10 rows=806 width=72)
+   Filter: (order_id IS NOT NULL)
+(2 rows)
+
+test_db=# 
+```
+
 ## Задача 6
 
 Создайте бэкап БД test_db и поместите его в volume, предназначенный для бэкапов (см. задачу 1).
