@@ -246,7 +246,17 @@ test_db=# UPDATE clients SET order_id = 4 WHERE id = 2;
 UPDATE 1
 test_db=# UPDATE clients SET order_id = 5 WHERE id = 3;
 UPDATE 1
+
+test_db=# select * from clients where order_id is not null;
+ id |         name         | country | order_id 
+----+----------------------+---------+----------
+  1 | Иванов Иван Иванович | USA     |        3
+  2 | Петров Петр Петрович | Canada  |        4
+  3 | Иоганн Себастьян Бах | Japan   |        5
+(3 rows)
+
 test_db=# 
+
 ```
 
 ## Задача 5
