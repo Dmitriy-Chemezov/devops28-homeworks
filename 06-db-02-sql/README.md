@@ -196,11 +196,30 @@ test_db=#
 
 Используя SQL-синтаксис:
 - вычислите количество записей для каждой таблицы.
-
 Приведите в ответе:
 
     - запросы,
     - результаты их выполнения.
+
+```
+test_db=# insert into orders (name,price) values ('Шоколад',10),('Принтер',3000),('Книга',500),('Монитор',7000),('Гитара',4000);
+INSERT 0 5
+test_db=# insert into clients (name,country) values ('Иванов Иван Иванович','USA'),('Петров Петр Петрович','Canada'),('Иоганн Себастьян Бах','Japan'),('Ронни Джеймс Дио','Russia'),('Ritchie Blackmore','Russia');
+INSERT 0 5
+test_db=# select count(*) from orders;
+ count 
+-------
+     5
+(1 row)
+
+test_db=# select count(*) from clients;
+ count 
+-------
+     5
+(1 row)
+
+test_db=# 
+```
 
 ## Задача 4
 
