@@ -15,6 +15,9 @@
 docker run -d -e POSTGRES_PASSWORD=user-test -v pg-data:/var/lib/postgresql/data -v pg-backup:/var/lib/postgresql/backup --name postgres postgres:12
 ```
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/06-db-02-sql/1)
+
+
 ## Задача 2
 
 В БД из задачи 1: 
