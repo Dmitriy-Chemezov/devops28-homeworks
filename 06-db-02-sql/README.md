@@ -48,6 +48,128 @@ docker run -d -e POSTGRES_PASSWORD=user-test -v pg-data:/var/lib/postgresql/data
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db;
 - список пользователей с правами над таблицами test_db.
 
+```
+┌──(odin㉿sys-kali)-[~]
+└─$ docker exec -it postgres /bin/bash
+root@2b5ea3af6794:/# psql -U postgres
+psql (12.16 (Debian 12.16-1.pgdg120+1))
+Type "help" for help.
+
+postgres=# create database test_db;
+CREATE DATABASE
+postgres=# create user "test-admin-user";
+CREATE ROLE
+postgres=# create user "test-simple-user";
+CREATE ROLE
+
+postgres=# \c test_db
+You are now connected to database "test_db" as user "postgres".
+test_db=# create table orders (
+test_db(# id int primary key generated always as identity,
+test_db(# name text not null,
+test_db(# price int );
+CREATE TABLE
+test_db=# create table clients (
+test_db(# id int primary key generated always as identity,
+test_db(# name text not null,
+test_db(# country text not null,
+test_db(# order_id int references orders(id) );
+CREATE TABLE
+test_db=# create index clients_country on clients (country);
+CREATE INDEX
+test_db=# grant all privileges on orders,clients to "test-admin-user"; 
+GRANT
+test_db=# grant select,insert,update,delete on orders,clients to "test-simple-user";
+GRANT
+test_db=# \l+
+                                                                   List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   |  Size   | Tablespace |                Description                 
+-----------+----------+----------+------------+------------+-----------------------+---------+------------+--------------------------------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |                       | 7977 kB | pg_default | default administrative connection database
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +| 7833 kB | pg_default | unmodifiable empty database
+           |          |          |            |            | postgres=CTc/postgres |         |            | 
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +| 7833 kB | pg_default | default template for new databases
+           |          |          |            |            | postgres=CTc/postgres |         |            | 
+ test_db   | postgres | UTF8     | en_US.utf8 | en_US.utf8 |                       | 8105 kB | pg_default | 
+(4 rows)
+
+test_db=# \d+ orders
+                                             Table "public.orders"
+ Column |  Type   | Collation | Nullable |           Default            | Storage  | Stats target | Description 
+--------+---------+-----------+----------+------------------------------+----------+--------------+-------------
+ id     | integer |           | not null | generated always as identity | plain    |              | 
+ name   | text    |           | not null |                              | extended |              | 
+ price  | integer |           |          |                              | plain    |              | 
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "clients" CONSTRAINT "clients_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id)
+Access method: heap
+
+test_db=# \d+ clients
+                                              Table "public.clients"
+  Column  |  Type   | Collation | Nullable |           Default            | Storage  | Stats target | Description 
+----------+---------+-----------+----------+------------------------------+----------+--------------+-------------
+ id       | integer |           | not null | generated always as identity | plain    |              | 
+ name     | text    |           | not null |                              | extended |              | 
+ country  | text    |           | not null |                              | extended |              | 
+ order_id | integer |           |          |                              | plain    |              | 
+Indexes:
+    "clients_pkey" PRIMARY KEY, btree (id)
+    "clients_country" btree (country)
+Foreign-key constraints:
+    "clients_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id)
+Access method: heap
+
+test_db=# \z
+                                           Access privileges
+ Schema |      Name      |   Type   |         Access privileges          | Column privileges | Policies 
+--------+----------------+----------+------------------------------------+-------------------+----------
+ public | clients        | table    | postgres=arwdDxt/postgres         +|                   | 
+        |                |          | "test-admin-user"=arwdDxt/postgres+|                   | 
+        |                |          | "test-simple-user"=arwd/postgres   |                   | 
+ public | clients_id_seq | sequence |                                    |                   | 
+ public | orders         | table    | postgres=arwdDxt/postgres         +|                   | 
+        |                |          | "test-admin-user"=arwdDxt/postgres+|                   | 
+        |                |          | "test-simple-user"=arwd/postgres   |                   | 
+ public | orders_id_seq  | sequence |                                    |                   | 
+(4 rows)
+
+test_db=# SELECT grantor, grantee, table_schema, table_name, privilege_type FROM information_schema.table_privileges WHERE grantee = 'test-admin-user';
+ grantor  |     grantee     | table_schema | table_name | privilege_type 
+----------+-----------------+--------------+------------+----------------
+ postgres | test-admin-user | public       | orders     | INSERT
+ postgres | test-admin-user | public       | orders     | SELECT
+ postgres | test-admin-user | public       | orders     | UPDATE
+ postgres | test-admin-user | public       | orders     | DELETE
+ postgres | test-admin-user | public       | orders     | TRUNCATE
+ postgres | test-admin-user | public       | orders     | REFERENCES
+ postgres | test-admin-user | public       | orders     | TRIGGER
+ postgres | test-admin-user | public       | clients    | INSERT
+ postgres | test-admin-user | public       | clients    | SELECT
+ postgres | test-admin-user | public       | clients    | UPDATE
+ postgres | test-admin-user | public       | clients    | DELETE
+ postgres | test-admin-user | public       | clients    | TRUNCATE
+ postgres | test-admin-user | public       | clients    | REFERENCES
+ postgres | test-admin-user | public       | clients    | TRIGGER
+(14 rows)
+
+test_db=# SELECT grantor, grantee, table_schema, table_name, privilege_type FROM information_schema.table_privileges WHERE grantee = 'test-simple-user';
+ grantor  |     grantee      | table_schema | table_name | privilege_type 
+----------+------------------+--------------+------------+----------------
+ postgres | test-simple-user | public       | orders     | INSERT
+ postgres | test-simple-user | public       | orders     | SELECT
+ postgres | test-simple-user | public       | orders     | UPDATE
+ postgres | test-simple-user | public       | orders     | DELETE
+ postgres | test-simple-user | public       | clients    | INSERT
+ postgres | test-simple-user | public       | clients    | SELECT
+ postgres | test-simple-user | public       | clients    | UPDATE
+ postgres | test-simple-user | public       | clients    | DELETE
+(8 rows)
+
+test_db=# 
+```
+
 ## Задача 3
 
 Используя SQL-синтаксис, наполните таблицы следующими тестовыми данными:
