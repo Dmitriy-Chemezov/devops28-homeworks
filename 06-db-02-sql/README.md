@@ -239,6 +239,16 @@ test_db=#
  
 Подсказка: используйте директиву `UPDATE`.
 
+```
+test_db=# UPDATE clients SET order_id = 3 WHERE id = 1;
+UPDATE 1
+test_db=# UPDATE clients SET order_id = 4 WHERE id = 2;
+UPDATE 1
+test_db=# UPDATE clients SET order_id = 5 WHERE id = 3;
+UPDATE 1
+test_db=# 
+```
+
 ## Задача 5
 
 Получите полную информацию по выполнению запроса выдачи всех пользователей из задачи 4 
