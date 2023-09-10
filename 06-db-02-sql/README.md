@@ -280,22 +280,20 @@ test_db=# SELECT COUNT (*) FROM clients;
 Подсказка: используйте директиву `UPDATE`.
 
 ```
-test_db=# UPDATE clients SET order_id = 3 WHERE id = 1;
+test_db=# UPDATE clients SET заказ=(select id from orders where наименование='Книга') WHERE фамилия='Иванов Иван Иванович';
 UPDATE 1
-test_db=# UPDATE clients SET order_id = 4 WHERE id = 2;
+test_db=# UPDATE clients SET заказ=(select id from orders where наименование='Монитор') WHERE фамилия='Петров Петр Петрович';
 UPDATE 1
-test_db=# UPDATE clients SET order_id = 5 WHERE id = 3;
+test_db=# UPDATE clients SET заказ=(select id from orders where наименование='Гитара') WHERE фамилия='Иоганн Себастьян Бах';
 UPDATE 1
-
-test_db=# select * from clients where order_id is not null;
- id |         name         | country | order_id 
-----+----------------------+---------+----------
-  1 | Иванов Иван Иванович | USA     |        3
-  2 | Петров Петр Петрович | Canada  |        4
-  3 | Иоганн Себастьян Бах | Japan   |        5
+test_db=# SELECT* FROM clients WHERE заказ IS NOT NULL;
+ id |       фамилия        | страна проживания | заказ 
+----+----------------------+-------------------+-------
+  1 | Иванов Иван Иванович | USA               |     3
+  2 | Петров Петр Петрович | Canada            |     4
+  3 | Иоганн Себастьян Бах | Japan             |     5
 (3 rows)
-
-test_db=# 
+ 
 
 ```
 
