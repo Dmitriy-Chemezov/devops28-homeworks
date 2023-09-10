@@ -12,10 +12,52 @@
 
 Приведите получившуюся команду или docker-compose-манифест.
 ```
-docker run -d -e POSTGRES_PASSWORD=user-test -v pg-data:/var/lib/postgresql/data -v pg-backup:/var/lib/postgresql/backup --name postgres postgres:12
-```
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ nano docker-compose.yaml
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/06-db-02-sql/1)
+version: '3'
+services:
+ db:
+   container_name: pg12
+   image: postgres:12
+   environment:
+     POSTGRES_USER: user
+     POSTGRES_PASSWORD: 111111
+     POSTGRES_DB: test_db
+   ports:
+     - "5432:5432"
+   volumes:      
+     - database_volume:/home/database/
+     - backup_volume:/home/backup/
+
+volumes:
+ database_volume:
+ backup_volume:
+
+                                                                                                      
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker pull postgres:12 
+12: Pulling from library/postgres
+Digest: sha256:8383b88cf9a14826ee853a99b49ed2615998780afc3aac4c2069191878744c87
+Status: Image is up to date for postgres:12
+docker.io/library/postgres:12
+                                                                                                      
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker-compose up -d    
+Creating network "docker_dz_default" with the default driver
+Creating volume "docker_dz_database_volume" with default driver
+Creating volume "docker_dz_backup_volume" with default driver
+Creating pg12 ... done
+                                                                                                      
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker ps              
+CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+fab35d71ecea   postgres:12   "docker-entrypoint.s…"   14 seconds ago   Up 13 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   pg12
+                                                                                                      
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker exec -it pg12 bash     
+root@fab35d71ecea:/# 
+```
 
 
 ## Задача 2
