@@ -91,125 +91,124 @@ root@fab35d71ecea:/#
 - список пользователей с правами над таблицами test_db.
 
 ```
-┌──(odin㉿sys-kali)-[~]
-└─$ docker exec -it postgres /bin/bash
-root@2b5ea3af6794:/# psql -U postgres
+root@fab35d71ecea:/# psql -d test_db -U user
 psql (12.16 (Debian 12.16-1.pgdg120+1))
 Type "help" for help.
 
-postgres=# create database test_db;
-CREATE DATABASE
-postgres=# create user "test-admin-user";
-CREATE ROLE
-postgres=# create user "test-simple-user";
+test_db=# CREATE USER test_admin_user;
 CREATE ROLE
 
-postgres=# \c test_db
-You are now connected to database "test_db" as user "postgres".
-test_db=# create table orders (
-test_db(# id int primary key generated always as identity,
-test_db(# name text not null,
-test_db(# price int );
+test_db=# CREATE TABLE orders
+(
+   id SERIAL PRIMARY KEY,
+   наименование TEXT,
+   цена INTEGER
+);
 CREATE TABLE
-test_db=# create table clients (
-test_db(# id int primary key generated always as identity,
-test_db(# name text not null,
-test_db(# country text not null,
-test_db(# order_id int references orders(id) );
+
+test_db=# CREATE TABLE clients
+(
+    id SERIAL PRIMARY KEY,
+    фамилия TEXT,
+    "страна проживания" TEXT,
+    заказ INTEGER,
+    FOREIGN KEY (заказ) REFERENCES orders(id)
+);
 CREATE TABLE
-test_db=# create index clients_country on clients (country);
+
+test_db=# CREATE INDEX country_index ON clients ("страна проживания");
 CREATE INDEX
-test_db=# grant all privileges on orders,clients to "test-admin-user"; 
+
+test_db=# GRANT ALL ON TABLE orders TO test_admin_user;
 GRANT
-test_db=# grant select,insert,update,delete on orders,clients to "test-simple-user";
+test_db=# GRANT ALL ON TABLE clients TO test_admin_user;
 GRANT
-test_db=# \l+
-                                                                   List of databases
-   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   |  Size   | Tablespace |                Description                 
------------+----------+----------+------------+------------+-----------------------+---------+------------+--------------------------------------------
- postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |                       | 7977 kB | pg_default | default administrative connection database
- template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +| 7833 kB | pg_default | unmodifiable empty database
-           |          |          |            |            | postgres=CTc/postgres |         |            | 
- template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +| 7833 kB | pg_default | default template for new databases
-           |          |          |            |            | postgres=CTc/postgres |         |            | 
- test_db   | postgres | UTF8     | en_US.utf8 | en_US.utf8 |                       | 8105 kB | pg_default | 
+
+test_db=# CREATE USER test_simple_user;
+CREATE ROLE
+test_db=# GRANT SELECT,INSERT,UPDATE,DELETE ON TABLE orders TO test_simple_user;
+GRANT
+test_db=# GRANT SELECT,INSERT,UPDATE,DELETE ON TABLE clients TO test_simple_user;
+GRANT
+
+test_db=# \l
+                             List of databases
+   Name    | Owner | Encoding |  Collate   |   Ctype    | Access privileges 
+-----------+-------+----------+------------+------------+-------------------
+ postgres  | user  | UTF8     | en_US.utf8 | en_US.utf8 | 
+ template0 | user  | UTF8     | en_US.utf8 | en_US.utf8 | =c/user          +
+           |       |          |            |            | user=CTc/user
+ template1 | user  | UTF8     | en_US.utf8 | en_US.utf8 | =c/user          +
+           |       |          |            |            | user=CTc/user
+ test_db   | user  | UTF8     | en_US.utf8 | en_US.utf8 | 
 (4 rows)
 
-test_db=# \d+ orders
-                                             Table "public.orders"
- Column |  Type   | Collation | Nullable |           Default            | Storage  | Stats target | Description 
---------+---------+-----------+----------+------------------------------+----------+--------------+-------------
- id     | integer |           | not null | generated always as identity | plain    |              | 
- name   | text    |           | not null |                              | extended |              | 
- price  | integer |           |          |                              | plain    |              | 
+test_db=# \d orders
+                               Table "public.orders"
+    Column    |  Type   | Collation | Nullable |              Default               
+--------------+---------+-----------+----------+------------------------------------
+ id           | integer |           | not null | nextval('orders_id_seq'::regclass)
+ наименование | text    |           |          | 
+ цена         | integer |           |          | 
 Indexes:
     "orders_pkey" PRIMARY KEY, btree (id)
 Referenced by:
-    TABLE "clients" CONSTRAINT "clients_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id)
-Access method: heap
+    TABLE "clients" CONSTRAINT "clients_заказ_fkey" FOREIGN KEY ("заказ") REFERENCES orders(id)
 
-test_db=# \d+ clients
-                                              Table "public.clients"
-  Column  |  Type   | Collation | Nullable |           Default            | Storage  | Stats target | Description 
-----------+---------+-----------+----------+------------------------------+----------+--------------+-------------
- id       | integer |           | not null | generated always as identity | plain    |              | 
- name     | text    |           | not null |                              | extended |              | 
- country  | text    |           | not null |                              | extended |              | 
- order_id | integer |           |          |                              | plain    |              | 
+test_db=# \d clients
+                                  Table "public.clients"
+      Column       |  Type   | Collation | Nullable |               Default               
+-------------------+---------+-----------+----------+-------------------------------------
+ id                | integer |           | not null | nextval('clients_id_seq'::regclass)
+ фамилия           | text    |           |          | 
+ страна проживания | text    |           |          | 
+ заказ             | integer |           |          | 
 Indexes:
     "clients_pkey" PRIMARY KEY, btree (id)
-    "clients_country" btree (country)
+    "country_index" btree ("страна проживания")
 Foreign-key constraints:
-    "clients_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id)
-Access method: heap
+    "clients_заказ_fkey" FOREIGN KEY ("заказ") REFERENCES orders(id)
 
-test_db=# \z
-                                           Access privileges
- Schema |      Name      |   Type   |         Access privileges          | Column privileges | Policies 
---------+----------------+----------+------------------------------------+-------------------+----------
- public | clients        | table    | postgres=arwdDxt/postgres         +|                   | 
-        |                |          | "test-admin-user"=arwdDxt/postgres+|                   | 
-        |                |          | "test-simple-user"=arwd/postgres   |                   | 
- public | clients_id_seq | sequence |                                    |                   | 
- public | orders         | table    | postgres=arwdDxt/postgres         +|                   | 
-        |                |          | "test-admin-user"=arwdDxt/postgres+|                   | 
-        |                |          | "test-simple-user"=arwd/postgres   |                   | 
- public | orders_id_seq  | sequence |                                    |                   | 
-(4 rows)
-
-test_db=# SELECT grantor, grantee, table_schema, table_name, privilege_type FROM information_schema.table_privileges WHERE grantee = 'test-admin-user';
- grantor  |     grantee     | table_schema | table_name | privilege_type 
-----------+-----------------+--------------+------------+----------------
- postgres | test-admin-user | public       | orders     | INSERT
- postgres | test-admin-user | public       | orders     | SELECT
- postgres | test-admin-user | public       | orders     | UPDATE
- postgres | test-admin-user | public       | orders     | DELETE
- postgres | test-admin-user | public       | orders     | TRUNCATE
- postgres | test-admin-user | public       | orders     | REFERENCES
- postgres | test-admin-user | public       | orders     | TRIGGER
- postgres | test-admin-user | public       | clients    | INSERT
- postgres | test-admin-user | public       | clients    | SELECT
- postgres | test-admin-user | public       | clients    | UPDATE
- postgres | test-admin-user | public       | clients    | DELETE
- postgres | test-admin-user | public       | clients    | TRUNCATE
- postgres | test-admin-user | public       | clients    | REFERENCES
- postgres | test-admin-user | public       | clients    | TRIGGER
-(14 rows)
-
-test_db=# SELECT grantor, grantee, table_schema, table_name, privilege_type FROM information_schema.table_privileges WHERE grantee = 'test-simple-user';
- grantor  |     grantee      | table_schema | table_name | privilege_type 
-----------+------------------+--------------+------------+----------------
- postgres | test-simple-user | public       | orders     | INSERT
- postgres | test-simple-user | public       | orders     | SELECT
- postgres | test-simple-user | public       | orders     | UPDATE
- postgres | test-simple-user | public       | orders     | DELETE
- postgres | test-simple-user | public       | clients    | INSERT
- postgres | test-simple-user | public       | clients    | SELECT
- postgres | test-simple-user | public       | clients    | UPDATE
- postgres | test-simple-user | public       | clients    | DELETE
-(8 rows)
-
-test_db=# 
+test_db=# SELECT grantee, table_catalog, table_name, privilege_type FROM information_schema.table_privileges WHERE table_name IN ('orders','clients');
+     grantee      | table_catalog | table_name | privilege_type 
+------------------+---------------+------------+----------------
+ user             | test_db       | orders     | INSERT
+ user             | test_db       | orders     | SELECT
+ user             | test_db       | orders     | UPDATE
+ user             | test_db       | orders     | DELETE
+ user             | test_db       | orders     | TRUNCATE
+ user             | test_db       | orders     | REFERENCES
+ user             | test_db       | orders     | TRIGGER
+ test_admin_user  | test_db       | orders     | INSERT
+ test_admin_user  | test_db       | orders     | SELECT
+ test_admin_user  | test_db       | orders     | UPDATE
+ test_admin_user  | test_db       | orders     | DELETE
+ test_admin_user  | test_db       | orders     | TRUNCATE
+ test_admin_user  | test_db       | orders     | REFERENCES
+ test_admin_user  | test_db       | orders     | TRIGGER
+ test_simple_user | test_db       | orders     | INSERT
+ test_simple_user | test_db       | orders     | SELECT
+ test_simple_user | test_db       | orders     | UPDATE
+ test_simple_user | test_db       | orders     | DELETE
+ user             | test_db       | clients    | INSERT
+ user             | test_db       | clients    | SELECT
+ user             | test_db       | clients    | UPDATE
+ user             | test_db       | clients    | DELETE
+ user             | test_db       | clients    | TRUNCATE
+ user             | test_db       | clients    | REFERENCES
+ user             | test_db       | clients    | TRIGGER
+ test_admin_user  | test_db       | clients    | INSERT
+ test_admin_user  | test_db       | clients    | SELECT
+ test_admin_user  | test_db       | clients    | UPDATE
+ test_admin_user  | test_db       | clients    | DELETE
+ test_admin_user  | test_db       | clients    | TRUNCATE
+ test_admin_user  | test_db       | clients    | REFERENCES
+ test_admin_user  | test_db       | clients    | TRIGGER
+ test_simple_user | test_db       | clients    | INSERT
+ test_simple_user | test_db       | clients    | SELECT
+ test_simple_user | test_db       | clients    | UPDATE                                                                                                                 
+ test_simple_user | test_db       | clients    | DELETE                                                                                                                 
+(36 rows) 
 ```
 
 ## Задача 3
