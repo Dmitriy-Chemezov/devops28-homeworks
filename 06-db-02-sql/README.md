@@ -102,7 +102,7 @@ root@b61194effa1d:/#
 - список пользователей с правами над таблицами test_db.
 
 ```
-root@fab35d71ecea:/# psql -d test_db -U user
+root@b61194effa1d:/# psql -d test_db -U user
 psql (12.16 (Debian 12.16-1.pgdg120+1))
 Type "help" for help.
 
@@ -328,16 +328,13 @@ test_db=# EXPLAIN SELECT* FROM clients WHERE заказ IS NOT NULL;
 
 ```
 test_db=# EXPLAIN (ANALYZE) SELECT* FROM clients WHERE заказ IS NOT NULL;
-                                             QUERY PLAN                                      
-        
----------------------------------------------------------------------------------------------
---------
- Seq Scan on clients  (cost=0.00..18.10 rows=806 width=72) (actual time=0.018..0.020 rows=3 l
-oops=1)
+                                             QUERY PLAN                                              
+-----------------------------------------------------------------------------------------------------
+ Seq Scan on clients  (cost=0.00..18.10 rows=806 width=72) (actual time=0.013..0.015 rows=3 loops=1)
    Filter: ("заказ" IS NOT NULL)
    Rows Removed by Filter: 2
- Planning Time: 0.086 ms
- Execution Time: 0.041 ms
+ Planning Time: 0.063 ms
+ Execution Time: 0.032 ms
 (5 rows)
 ```
 Здесь уже видны реальные затраты на обработку первой и всех строк, количество выведенных строк (3), удовлетворяющих фильру "заказ" IS NOT NULL, количество проходов (1), количество строк, которые были удалены из запроса по фильтру (2), планируемое и затраченное время, а также общее количество строк, по которым производилась выборка.
