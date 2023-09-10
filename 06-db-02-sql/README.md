@@ -27,12 +27,12 @@ services:
    ports:
      - "5432:5432"
    volumes:      
-     - database_volume:/home/database/
-     - backup_volume:/home/backup/
+     - pg12_database_volume:/home/database/
+     - pg12_backup_volume:/home/backup/
 
 volumes:
- database_volume:
- backup_volume:
+ pg12_database_volume:
+ pg12_backup_volume:
 
                                                                                                       
 ┌──(odin㉿sys-kali)-[~/docker_dz]
@@ -43,20 +43,31 @@ Status: Image is up to date for postgres:12
 docker.io/library/postgres:12
                                                                                                       
 ┌──(odin㉿sys-kali)-[~/docker_dz]
-└─$ docker-compose up -d    
-Creating network "docker_dz_default" with the default driver
-Creating volume "docker_dz_database_volume" with default driver
-Creating volume "docker_dz_backup_volume" with default driver
+└─$ docker-compose up -d                                                             
+Creating volume "docker_dz_pg12_database_volume" with default driver
+Creating volume "docker_dz_pg12_backup_volume" with default driver
 Creating pg12 ... done
-                                                                                                      
+                                                                                                                                           
 ┌──(odin㉿sys-kali)-[~/docker_dz]
-└─$ docker ps              
-CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                       NAMES
-fab35d71ecea   postgres:12   "docker-entrypoint.s…"   14 seconds ago   Up 13 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   pg12
-                                                                                                      
+└─$ docker volume ls    
+DRIVER    VOLUME NAME
+local     a6ac7330219da1e220c5537791193e6627f7c470d7e928b26b48053dcd42271f
+local     docker_dz_pg12_backup_volume
+local     docker_dz_pg12_database_volume
+
+  ┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker ps       
+CONTAINER ID   IMAGE         COMMAND                  CREATED              STATUS              PORTS                                       NAMES
+b61194effa1d   postgres:12   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   pg12
+                                                                                                                                           
 ┌──(odin㉿sys-kali)-[~/docker_dz]
-└─$ docker exec -it pg12 bash     
-root@fab35d71ecea:/# 
+└─$ docker ps -a
+CONTAINER ID   IMAGE         COMMAND                  CREATED              STATUS              PORTS                                       NAMES
+b61194effa1d   postgres:12   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   pg12                                                                                                    
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker exec -it pg12 bash
+root@b61194effa1d:/# 
+
 ```
 
 
@@ -345,6 +356,57 @@ oops=1)
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
 
 ```
+root@fab35d71ecea:/# pg_dump -U user test_db > /home/backup/test_db.dump
+root@fab35d71ecea:/# exit                                                                                                                  
+exit
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker stop pg12          
+pg12
+                                                                                                                                           
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker ps       
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ mkdir backup                                                                                        
+                                                                                                                                           
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker cp pg12:/home/backup/test_db.dump /home/odin/docker_dz/backup
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ nano docker-compose.yaml
+
+version: '3'
+services:
+ db:
+   container_name: pg12_1
+   image: postgres:12
+   environment:
+     POSTGRES_USER: user
+     POSTGRES_PASSWORD: 111111
+     POSTGRES_DB: test_db
+   ports:
+     - "5432:5432"
+   volumes:      
+     - database_volume:/home/database/
+     - backup_volume:/home/backup/
+
+volumes:
+ database_volume:
+ backup_volume:
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker-compose up -d                                                                                
+Recreating pg12 ... done
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker ps   
+CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+b85e7f1127ba   postgres:12   "docker-entrypoint.s…"   27 seconds ago   Up 27 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   pg12_1
+
+
+
 
 
 
