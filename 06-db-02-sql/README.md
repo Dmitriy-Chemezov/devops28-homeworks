@@ -243,23 +243,22 @@ test_db=# SELECT grantee, table_catalog, table_name, privilege_type FROM informa
     - результаты их выполнения.
 
 ```
-test_db=# insert into orders (name,price) values ('Шоколад',10),('Принтер',3000),('Книга',500),('Монитор',7000),('Гитара',4000);
+test_db=# INSERT INTO orders VALUES (1, 'Шоколад', 10), (2, 'Принтер', 3000), (3, 'Книга', 500), (4, 'Монитор', 7000), (5, 'Гитара', 4000);
 INSERT 0 5
-test_db=# insert into clients (name,country) values ('Иванов Иван Иванович','USA'),('Петров Петр Петрович','Canada'),('Иоганн Себастьян Бах','Japan'),('Ронни Джеймс Дио','Russia'),('Ritchie Blackmore','Russia');
+test_db=# INSERT INTO clients VALUES (1, 'Иванов Иван Иванович', 'USA'), (2, 'Петров Петр Петрович', 'Canada'), (3, 'Иоганн Себастьян Бах', 'Japan'), (4, 'Ронни Джеймс Дио', 'Russia'), (5, 'Ritchie Blackmore', 'Russia');
 INSERT 0 5
-test_db=# select count(*) from orders;
+
+test_db=# SELECT COUNT (*) FROM orders;
  count 
 -------
      5
 (1 row)
 
-test_db=# select count(*) from clients;
+test_db=# SELECT COUNT (*) FROM clients;
  count 
 -------
      5
 (1 row)
-
-test_db=# 
 ```
 
 ## Задача 4
