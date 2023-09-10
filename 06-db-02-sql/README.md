@@ -475,10 +475,12 @@ psql:/home/backup/test_db.dump:183: ERROR:  role "test_admin_user" does not exis
 psql:/home/backup/test_db.dump:184: ERROR:  role "test_simple_user" does not exist
 psql:/home/backup/test_db.dump:191: ERROR:  role "test_admin_user" does not exist
 psql:/home/backup/test_db.dump:192: ERROR:  role "test_simple_user" does not exist
-root@4543c060add2:/# 
+root@4543c060add2:/#
+```
 ---
 
 ### Как cдавать задание
 
 Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
 
+---
