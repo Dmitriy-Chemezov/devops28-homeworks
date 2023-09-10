@@ -353,8 +353,11 @@ test_db=# EXPLAIN (ANALYZE) SELECT* FROM clients WHERE заказ IS NOT NULL;
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
 
 ```
-root@fab35d71ecea:/# pg_dump -U user test_db > /home/backup/test_db.dump
-root@fab35d71ecea:/# exit                                                                                                                  
+root@b61194effa1d:/# pg_dump -U user test_db > /home/backup/test_db.dump
+root@b61194effa1d:/# cd /home/backup/
+root@b61194effa1d:/home/backup# ls
+test_db.dump
+root@b61194effa1d:/home/backup# exit
 exit
 
 ┌──(odin㉿sys-kali)-[~/docker_dz]
@@ -366,15 +369,33 @@ pg12
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 ┌──(odin㉿sys-kali)-[~/docker_dz]
-└─$ mkdir backup                                                                                        
-                                                                                                                                           
-┌──(odin㉿sys-kali)-[~/docker_dz]
-└─$ docker cp pg12:/home/backup/test_db.dump /home/odin/docker_dz/backup
+└─$ docker ps -a
+CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS                     PORTS     NAMES
+b61194effa1d   postgres:12   "docker-entrypoint.s…"   34 minutes ago   Exited (0) 2 minutes ago             pg12
 
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker volume ls    
+DRIVER    VOLUME NAME
+local     a6ac7330219da1e220c5537791193e6627f7c470d7e928b26b48053dcd42271f
+local     docker_dz_pg12_backup_volume
+local     docker_dz_pg12_database_volume
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker volume rm a6ac7330219da1e220c5537791193e6627f7c470d7e928b26b48053dcd42271f
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker volume rm docker_dz_pg12_database_volume                                  
+docker_dz_pg12_database_volume
+
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker volume ls                               
+DRIVER    VOLUME NAME
+local     docker_dz_pg12_backup_volume
+                                                                                                                                           
 ┌──(odin㉿sys-kali)-[~/docker_dz]
 └─$ nano docker-compose.yaml
 
-version: '3'
+ version: '3'
 services:
  db:
    container_name: pg12_1
@@ -386,28 +407,75 @@ services:
    ports:
      - "5432:5432"
    volumes:      
-     - database_volume:/home/database/
-     - backup_volume:/home/backup/
+     - pg12_database_volume:/home/database/
+     - pg12_backup_volume:/home/backup/
 
 volumes:
- database_volume:
- backup_volume:
+ pg12_database_volume:
+ pg12_backup_volume:
 
 ┌──(odin㉿sys-kali)-[~/docker_dz]
-└─$ docker-compose up -d                                                                                
-Recreating pg12 ... done
+└─$ docker-compose up -d                                                             
+Creating volume "docker_dz_pg12_database_volume" with default driver
+Creating pg12_1 ... done
+                                                                                                                                           
+┌──(odin㉿sys-kali)-[~/docker_dz]
+└─$ docker ps           
+CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+4543c060add2   postgres:12   "docker-entrypoint.s…"   4 minutes ago   Up 4 minutes   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   pg12_1
 
 ┌──(odin㉿sys-kali)-[~/docker_dz]
-└─$ docker ps   
-CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                       NAMES
-b85e7f1127ba   postgres:12   "docker-entrypoint.s…"   27 seconds ago   Up 27 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   pg12_1
+└─$ docker exec -it pg12_1 bash                                                      
+root@4543c060add2:/# psql -U user -d test_db -f /home/backup/test_db.dump
+SET
+SET
+SET
+SET
+SET
+ set_config 
+------------
+ 
+(1 row)
 
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER TABLE
+ALTER SEQUENCE
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER TABLE
+ALTER SEQUENCE
+ALTER TABLE
+ALTER TABLE
+COPY 5
+COPY 5
+ setval 
+--------
+      1
+(1 row)
 
+ setval 
+--------
+      1
+(1 row)
 
-
-
-
-
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+ALTER TABLE
+psql:/home/backup/test_db.dump:183: ERROR:  role "test_admin_user" does not exist
+psql:/home/backup/test_db.dump:184: ERROR:  role "test_simple_user" does not exist
+psql:/home/backup/test_db.dump:191: ERROR:  role "test_admin_user" does not exist
+psql:/home/backup/test_db.dump:192: ERROR:  role "test_simple_user" does not exist
+root@4543c060add2:/# 
 ---
 
 ### Как cдавать задание
