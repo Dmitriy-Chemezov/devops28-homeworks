@@ -39,21 +39,21 @@ mysql        8.0       5761fe35fa53   4 weeks ago   577MB
 DRIVER    VOLUME NAME
                                                                                              
 ┌──(odin㉿sys-kali)-[~/docker-mysql]
-└─$ docker run --name mysql-test --network host -e MYSQL_ROOT_PASSWORD=mysql -ti -d -v volume1:/media/mysql/mysql-data/ -v volume2:/media/mysql/backup-data mysql:8.0
-3618d8cfe4e8ab37c0c1b2f39e72ac5d7819e1741c283dbb160d2441ddd46905
+└─$ docker run --name mysql-test --network host -e MYSQL_ROOT_PASSWORD=netology -ti -d -v volume1:/media/mysql/mysql-data/ -v volume2:/media/mysql/backup-data mysql:8.0
+215fbe3e42857b54b2fc481c3825ac87ec09920ddd1df313ba6e54c78b506efc
                                                                                              
 ┌──(odin㉿sys-kali)-[~/docker-mysql]
 └─$ docker ps
 CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS     NAMES
-3618d8cfe4e8   mysql:8.0   "docker-entrypoint.s…"   6 seconds ago   Up 6 seconds             mysql-test
+215fbe3e4285   mysql:8.0   "docker-entrypoint.s…"   8 seconds ago   Up 8 seconds             mysql-test
 
 ┌──(odin㉿sys-kali)-[~/docker-mysql]
-└─$ docker cp /home/odin/virt-homeworks/06-db-03-mysql/test_data/test_dump.sql 3618d8cfe4e8:/media/mysql/backup-data
-
+└─$ docker cp /home/odin/virt-homeworks/06-db-03-mysql/test_data/test_dump.sql 215fbe3e4285:/media/mysql/backup-data
+                                                                                             
 ┌──(odin㉿sys-kali)-[~/docker-mysql]
 └─$ docker volume ls
 DRIVER    VOLUME NAME
-local     d75740ee96100f863dffef866265a0b7232410a02afcaf3bec847f5658132afc
+local     25c31c51e67e8971336d5d32630fa1a039f1f4d2be7e7e57d58cc492ed123d2b
 local     volume1
 local     volume2
 ```
