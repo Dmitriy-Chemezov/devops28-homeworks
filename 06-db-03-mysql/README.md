@@ -9,6 +9,48 @@
 
 Используя Docker, поднимите инстанс MySQL (версию 8). Данные БД сохраните в volume.
 
+```                                                                                             
+┌──(odin㉿sys-kali)-[~/docker-mysql]
+└─$ docker pull mysql:8.0  
+8.0: Pulling from library/mysql
+b193354265ba: Pull complete 
+14a15c0bb358: Pull complete 
+02da291ad1e4: Pull complete 
+9a89a1d664ee: Pull complete 
+a24ae6513051: Pull complete 
+5110d0b8df84: Pull complete 
+71def905d921: Pull complete 
+c29c4f8eb3c1: Pull complete 
+769af171cdaa: Pull complete 
+c1a0ba6abbff: Pull complete 
+5e7e1ae11403: Pull complete 
+Digest: sha256:f0e71f077bb27fe17b1b9551f75d1b35ad4dfe3a33c82412acf19684790f3a30
+Status: Downloaded newer image for mysql:8.0
+docker.io/library/mysql:8.0
+                                                                                             
+┌──(odin㉿sys-kali)-[~/docker-mysql]
+└─$ docker images        
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+postgres     12        f0e41fa7eb3e   3 days ago    406MB
+mysql        8.0       5761fe35fa53   4 weeks ago   577MB
+
+┌──(odin㉿sys-kali)-[~/docker-mysql]
+└─$ docker volume ls                                                                 
+DRIVER    VOLUME NAME
+                                                                                             
+┌──(odin㉿sys-kali)-[~/docker-mysql]
+└─$ docker run --name mysql-test --network host -e MYSQL_ROOT_PASSWORD=mysql -ti -d -v volume1:/media/mysql/mysql-data/ -v volume2:/media/mysql/backup-data mysql:8.0
+3618d8cfe4e8ab37c0c1b2f39e72ac5d7819e1741c283dbb160d2441ddd46905
+                                                                                             
+┌──(odin㉿sys-kali)-[~/docker-mysql]
+└─$ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS     NAMES
+3618d8cfe4e8   mysql:8.0   "docker-entrypoint.s…"   6 seconds ago   Up 6 seconds             mysql-test
+
+┌──(odin㉿sys-kali)-[~/docker-mysql]
+└─$ docker cp /home/odin/virt-homeworks/06-db-03-mysql/test_data/test_dump.sql 3618d8cfe4e8:/media/mysql/backup-data
+```
+
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/virt-11/06-db-03-mysql/test_data) и 
 восстановитесь из него.
 
