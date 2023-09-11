@@ -49,6 +49,13 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS      
 
 ┌──(odin㉿sys-kali)-[~/docker-mysql]
 └─$ docker cp /home/odin/virt-homeworks/06-db-03-mysql/test_data/test_dump.sql 3618d8cfe4e8:/media/mysql/backup-data
+
+┌──(odin㉿sys-kali)-[~/docker-mysql]
+└─$ docker volume ls
+DRIVER    VOLUME NAME
+local     d75740ee96100f863dffef866265a0b7232410a02afcaf3bec847f5658132afc
+local     volume1
+local     volume2
 ```
 
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/virt-11/06-db-03-mysql/test_data) и 
