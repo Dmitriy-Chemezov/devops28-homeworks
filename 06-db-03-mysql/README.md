@@ -234,6 +234,37 @@ mysql> SELECT * FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE USER = 'test';
 - на `MyISAM`,
 - на `InnoDB`.
 
+```
+mysql> SET profiling = 1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> SELECT table_schema,table_name,engine FROM information_schema.tables WHERE table_schema = DATABASE();
++--------------+------------+--------+
+| TABLE_SCHEMA | TABLE_NAME | ENGINE |
++--------------+------------+--------+
+| test_db      | orders     | InnoDB |
++--------------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> alter table orders engine = 'MyISAM';
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE orders ENGINE = InnoDB;
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SHOW PROFILES;
++----------+------------+--------------------------------------+
+| Query_ID | Duration   | Query                                |
++----------+------------+--------------------------------------+
+|        1 | 0.03296725 | alter table orders engine = 'MyISAM' |
+|        2 | 0.03555950 | ALTER TABLE orders ENGINE = InnoDB   |
++----------+------------+--------------------------------------+
+2 rows in set, 1 warning (0.00 sec)
+
+```
+
 ## Задача 4 
 
 Изучите файл `my.cnf` в директории /etc/mysql.
