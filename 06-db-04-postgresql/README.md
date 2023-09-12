@@ -400,7 +400,30 @@ test_database=#
 
 Используя утилиту `pg_dump`, создайте бекап БД `test_database`.
 
+```
+test_database=# \q
+root@142c3994b0c6:/# pg_dump -U postgres -O -F p  -C test_database > /home/backup/new_test_dump.sql 
+root@142c3994b0c6:/# ls /home/backup/
+new_test_dump.sql  test_dump.sql
+root@142c3994b0c6:/#
+```
+
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
+
+```
+CREATE TABLE public.orders (
+    id integer NOT NULL CONSTRAINT must_be_different UNIQUE,
+    title character varying(80) NOT NULL,
+    price integer DEFAULT 0
+);
+```
+
+
+```
+CREATE INDEX uniq_title ON orders(title);
+CREATE INDEX uniq_title_1 ON orders_1(title);
+CREATE INDEX uniq_title_2 ON orders_2(title);
+```
 
 ---
 
