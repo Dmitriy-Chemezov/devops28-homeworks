@@ -289,16 +289,80 @@ root@142c3994b0c6:/#
 
 Используя `psql`, создайте БД `test_database`.
 
+```
+root@142c3994b0c6:/# psql -U postgres -c "CREATE DATABASE "test_database" OWNER=postgres"
+CREATE DATABASE
+```
+
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/virt-11/06-db-04-postgresql/test_data).
 
 Восстановите бэкап БД в `test_database`.
 
+```
+root@142c3994b0c6:/# psql -U postgres test_database < /home/backup/test_dump.sql 
+SET
+SET
+SET
+SET
+SET
+ set_config 
+------------
+ 
+(1 row)
+
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER TABLE
+ALTER SEQUENCE
+ALTER TABLE
+COPY 8
+ setval 
+--------
+      8
+(1 row)
+
+ALTER TABLE
+```
+
 Перейдите в управляющую консоль `psql` внутри контейнера.
+
+```
+root@142c3994b0c6:/# psql -U postgres 
+psql (13.12 (Debian 13.12-1.pgdg120+1))
+Type "help" for help.
+
+postgres=# 
+
+```
 
 Подключитесь к восстановленной БД и проведите операцию ANALYZE для сбора статистики по таблице.
 
+```
+test_database=# ANALYZE VERBOSE orders;
+INFO:  analyzing "public.orders"
+INFO:  "orders": scanned 1 of 1 pages, containing 8 live rows and 0 dead rows; 8 rows in sample, 8 estimated total rows
+ANALYZE
+
+```
+
 Используя таблицу [pg_stats](https://postgrespro.ru/docs/postgresql/12/view-pg-stats), найдите столбец таблицы `orders` 
 с наибольшим средним значением размера элементов в байтах.
+
+```
+test_database=# select attname, avg_width from pg_stats where tablename='orders' order by avg_width desc limit 1;
+ attname | avg_width 
+---------+-----------
+ title   |        16
+(1 row)
+
+```
 
 **Приведите в ответе** команду, которую вы использовали для вычисления, и полученный результат.
 
