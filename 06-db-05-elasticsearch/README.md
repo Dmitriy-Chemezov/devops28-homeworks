@@ -151,13 +151,65 @@ CONTAINER ID   IMAGE                        COMMAND                 CREATED     
 | ind-2 | 1 | 2 |
 | ind-3 | 2 | 4 |
 
+```
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ curl -X PUT "localhost:9200/ind-1" -H 'Content-Type: application/json' -d' { "settings": { "number_of_shards": 1, "number_of_replicas": 0 }}'
+{"acknowledged":true,"shards_acknowledged":true,"index":"ind-1"}[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ 
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ curl -X PUT localhost:9200/ind-2 -H 'Content-Type: application/json' -d'{ "settings": { "number_of_shards": 2,  "number_of_replicas": 1 }}'
+{"acknowledged":true,"shards_acknowledged":true,"index":"ind-2"}[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ 
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ curl -X PUT localhost:9200/ind-3 -H 'Content-Type: application/json' -d'{ "settings": { "number_of_shards": 4,  "number_of_replicas": 2 }}'
+{"acknowledged":true,"shards_acknowledged":true,"index":"ind-3"}[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ 
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ 
+```
+
 Получите список индексов и их статусов, используя API, и **приведите в ответе** на задание.
+
+```
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ curl -X GET 'http://localhost:9200/_cat/indices?v'
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .geoip_databases nI9a3I74Qu2g2cOhaDeP5Q   1   0         43            0     40.8mb         40.8mb
+green  open   ind-1            PMsCayzoTRSr14LJES6pNA   1   0          0            0       226b           226b
+yellow open   ind-3            srNyW9FsR2q7USpwtAQnOQ   4   2          0            0       904b           904b
+yellow open   ind-2            XiIF0hKcQQWZB0uUgHbt1w   2   1          0            0       452b           452b
+
+```
 
 Получите состояние кластера `Elasticsearch`, используя API.
 
+```
+elasticsearch-7.16.0]$ curl -X GET "localhost:9200/_cluster/health?pretty"
+{
+  "cluster_name" : "netology",
+  "status" : "yellow",
+  "timed_out" : false,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
+  "active_primary_shards" : 10,
+  "active_shards" : 10,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 10,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 50.0
+
+```
+
 Как вы думаете, почему часть индексов и кластер находятся в состоянии yellow?
 
+У них должны быть реплики, но в кластере всего одна нода, поэтому размещать их негде. В таком случае кластер помечает их желтыми (согласно документации по elasticsearch).
+
 Удалите все индексы.
+
+```
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ curl -X DELETE 'http://localhost:9200/_all'{"acknowledged":true}
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ curl -X GET 'http://localhost:9200/_cat/indices?v'
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .geoip_databases nI9a3I74Qu2g2cOhaDeP5Q   1   0         43            0     40.8mb         40.8mb
+[elastic@1eb99ab196e1 elasticsearch-7.16.0]$ 
+
+```
 
 **Важно**
 
