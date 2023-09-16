@@ -225,24 +225,130 @@ green  open   .geoip_databases nI9a3I74Qu2g2cOhaDeP5Q   1   0         43        
 
 Создайте директорию `{путь до корневой директории с Elasticsearch в образе}/snapshots`.
 
+```
+┌──(odin㉿sys-kali)-[~/elasticsearch]
+└─$ docker exec -u root -it elastic bash
+[root@1eb99ab196e1 elasticsearch-7.16.0]# mkdir /opt/snapshots
+[root@1eb99ab196e1 elasticsearch-7.16.0]# echo path.repo: [ "/opt/snapshots" ] >> "$ES_HOME/config/elasticsearch.yml"
+[root@1eb99ab196e1 elasticsearch-7.16.0]# chown elastic:elastic /opt/snapshots
+[root@1eb99ab196e1 elasticsearch-7.16.0]# cat $ES_HOME/config/elasticsearch.yml
+discovery:
+  type: single-node
+
+cluster:
+  name: netology
+
+node:
+  name: netology_test
+
+network:
+  host: 0.0.0.0
+
+path:
+  data: /var/lib/elasticsearch
+  logs: /var/log/elasticsearch
+path.repo: [ /opt/snapshots ]
+[root@1eb99ab196e1 elasticsearch-7.16.0]# 
+```
+
 Используя API, [зарегистрируйте](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html#snapshots-register-repository) 
 эту директорию как `snapshot repository` c именем `netology_backup`.
 
 **Приведите в ответе** запрос API и результат вызова API для создания репозитория.
 
+```
+[root@1eb99ab196e1 elasticsearch-7.16.0]# exit
+exit
+                                                                                                                                        
+┌──(odin㉿sys-kali)-[~/elasticsearch]
+└─$ docker restart elastic
+elastic
+                                                                                                                                        
+┌──(odin㉿sys-kali)-[~/elasticsearch]
+└─$ docker exec -u root -it elastic bash
+[root@1eb99ab196e1 elasticsearch-7.16.0]# curl -X PUT "localhost:9200/_snapshot/netology_backup?pretty" -H 'Content-Type: application/json' -d'
+> {
+>  "type": "fs",
+>  "settings": {
+>    "location": "/opt/snapshots",
+>     "compress": true
+>   }
+>  }'
+{
+  "acknowledged" : true
+```
+
 Создайте индекс `test` с 0 реплик и 1 шардом и **приведите в ответе** список индексов.
+
+```
+[root@1eb99ab196e1 elasticsearch-7.16.0]# 
+> {
+>   "settings": {
+>     "number_of_shards": 1,
+>     "number_of_replicas": 0
+>   }
+>  }'
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "test"
+
+[root@1eb99ab196e1 elasticsearch-7.16.0]# curl 'localhost:9200/_cat/indices?v'
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .geoip_databases nI9a3I74Qu2g2cOhaDeP5Q   1   0         43            0     40.8mb         40.8mb
+green  open   test             d4o5hpeETN6UonkBgrhL9w   1   0          0            0       226b           226b
+
+```
 
 [Создайте `snapshot`](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html) 
 состояния кластера `Elasticsearch`.
 
+```
+[root@1eb99ab196e1 elasticsearch-7.16.0]# curl -X PUT -H "Content-Type:application/json" http://localhost:9200/_snapshot/netology_backup/snapshot_1?wait_for_completion=true
+{"snapshot":{"snapshot":"snapshot_1","uuid":"TOSVshC9T66MsuOf6m8jSw","repository":"netology_backup","version_id":7160099,"version":"7.16.0","indices":[".ds-.logs-deprecation.elasticsearch-default-2023.09.16-000001",".geoip_databases",".ds-ilm-history-5-2023.09.16-000001","test"],"data_streams":["ilm-history-5",".logs-deprecation.elasticsearch-default"],"include_global_state":true,"state":"SUCCESS","start_time":"2023-09-16T18:12:03.876Z","start_time_in_millis":1694887923876,"end_time":"2023-09-16T18:12:05.078Z","end_time_in_millis":1694887925078,"duration_in_millis":1202,"failures":[],"shards":{"total":4,"failed":0,"successful":4},"feature_states":[{"feature_name":"geoip","indices":[".geoip_databases"]}]}}
+```
+
 **Приведите в ответе** список файлов в директории со `snapshot`.
 
+```
+[root@1eb99ab196e1 elasticsearch-7.16.0]# ls -l /opt/snapshots/
+total 28
+-rw-r--r-- 1 elastic elastic 1422 Sep 16 18:12 index-0
+-rw-r--r-- 1 elastic elastic    8 Sep 16 18:12 index.latest
+drwxr-xr-x 6 elastic elastic 4096 Sep 16 18:12 indices
+-rw-r--r-- 1 elastic elastic 9721 Sep 16 18:12 meta-TOSVshC9T66MsuOf6m8jSw.dat
+-rw-r--r-- 1 elastic elastic  455 Sep 16 18:12 snap-TOSVshC9T66MsuOf6m8jSw.dat
+```
+
 Удалите индекс `test` и создайте индекс `test-2`. **Приведите в ответе** список индексов.
+
+```
+[root@1eb99ab196e1 elasticsearch-7.16.0]# curl -X DELETE http://localhost:9200/test
+{"acknowledged":true}[root@1eb99ab196e1 elasticsearch-7.16.0]# 
+[root@1eb99ab196e1 elasticsearch-7.16.0]# curl -X PUT -H "Content-Type:application/json" -d '{"settings": {"index": {"number_of_shards": 1, "number_of_replicas": 0}}}' http://localhost:9200/test-2
+{"acknowledged":true,"shards_acknowledged":true,"index":"test-2"}[root@1eb99ab196e1 elasticsearch-7.16.0]# 
+[root@1eb99ab196e1 elasticsearch-7.16.0]# curl http://localhost:9200/_cat/indices
+green open .geoip_databases nI9a3I74Qu2g2cOhaDeP5Q 1 0 43 0 40.8mb 40.8mb
+green open test-2           YnYJAeRKTDCIF9ehooCDkQ 1 0  0 0   226b   226b
+
+```
 
 [Восстановите](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-restore-snapshot.html) состояние
 кластера `Elasticsearch` из `snapshot`, созданного ранее. 
 
+```
+curl -X POST http://localhost:9200/_snapshot/netology_backup/snapshot_1/_restore
+{"accepted":true}
+```
+
 **Приведите в ответе** запрос к API восстановления и итоговый список индексов.
+
+```
+[root@1eb99ab196e1 elasticsearch-7.16.0]# curl 'localhost:9200/_cat/indices?v'
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .geoip_databases nI9a3I74Qu2g2cOhaDeP5Q   1   0         43            0     40.8mb         40.8mb
+green  open   test             d4o5hpeETN6UonkBgrhL9w   1   0          0            0       226b           226b
+```
 
 Подсказки:
 
