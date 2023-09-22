@@ -324,6 +324,50 @@ shekeriev.
 
 В качестве ответа приложите plan для создаваемого ресурса и скриншот созданного в VB ресурса. 
 
+```
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/virtualbox_terraform]
+└─$ terraform init   
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding shekeriev/virtualbox versions matching "0.0.4"...
+- Installing shekeriev/virtualbox v0.0.4...
+- Installed shekeriev/virtualbox v0.0.4 (unauthenticated)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+╷
+│ Warning: Incomplete lock file information for providers
+│ 
+│ Due to your customized provider installation methods, Terraform was forced to calculate lock file checksums
+│ locally for the following providers:
+│   - shekeriev/virtualbox
+│ 
+│ The current .terraform.lock.hcl file only includes checksums for linux_amd64, so Terraform running on
+│ another platform will fail to install these providers.
+│ 
+│ To calculate additional checksums for another platform, run:
+│   terraform providers lock -platform=linux_amd64
+│ (where linux_amd64 is the platform to generate)
+╵
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see                                 
+any changes that are required for your infrastructure. All Terraform commands                                 
+should now work.                                                                                              
+                                                                                                              
+If you ever set or change modules or backend configuration for Terraform,                                     
+rerun this command to reinitialize your working directory. If you forget, other                               
+commands will detect it and remind you to do so if necessary.
+
+
+```
+
 ------
 
 ### Правила приёма работы
