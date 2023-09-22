@@ -31,6 +31,15 @@
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/2.png)
 
 2. Изучите файл **.gitignore**. В каком terraform-файле, согласно этому .gitignore, допустимо сохранить личную, секретную информацию?
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/3.png)
+
+```
+# own secret vars store.
+personal.auto.tfvars
+
+```
+
 3. Выполните код проекта. Найдите  в state-файле секретное содержимое созданного ресурса **random_password**, пришлите в качестве ответа конкретный ключ и его значение.
 4. Раскомментируйте блок кода, примерно расположенный на строчках 29–42 файла **main.tf**.
 Выполните команду ```terraform validate```. Объясните, в чём заключаются намеренно допущенные ошибки. Исправьте их.
