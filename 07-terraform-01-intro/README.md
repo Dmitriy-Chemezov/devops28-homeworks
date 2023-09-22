@@ -14,7 +14,7 @@
 3. Убедитесь, что в вашей ОС установлен docker.
 4. Зарегистрируйте аккаунт на сайте https://hub.docker.com/, выполните команду docker login и введите логин, пароль.
 
-![]()
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/1.png)
 
 ------
 
