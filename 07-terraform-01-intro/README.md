@@ -268,7 +268,7 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED              STAT
 6. Замените имя docker-контейнера в блоке кода на ```hello_world```. Не перепутайте имя контейнера и имя образа. Мы всё ещё продолжаем использовать name = "nginx:latest". Выполните команду ```terraform apply -auto-approve```.
 Объясните своими словами, в чём может быть опасность применения ключа  ```-auto-approve```. В качестве ответа дополнительно приложите вывод команды ```docker ps```.
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/9.png)
+![]()
 
 ```
 ┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
