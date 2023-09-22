@@ -284,129 +284,9 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED              STAT
 ```
 ┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
 └─$ terraform destroy            
-docker_image.nginx: Refreshing state... [id=sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx:latest]
-random_password.random_string: Refreshing state... [id=none]
-docker_container.hello_world: Refreshing state... [id=ab62f619006653c5dbd0918cbddb93b7ddbc6729e98bff10c2408016a38c788c]
-
-Terraform used the selected providers to generate the following execution plan. Resource actions are
-indicated with the following symbols:
-  - destroy
-
-Terraform will perform the following actions:
-
-  # docker_container.hello_world will be destroyed
-  - resource "docker_container" "hello_world" {
-      - attach                                      = false -> null
-      - command                                     = [
-          - "nginx",
-          - "-g",
-          - "daemon off;",
-        ] -> null
-      - container_read_refresh_timeout_milliseconds = 15000 -> null
-      - cpu_shares                                  = 0 -> null
-      - dns                                         = [] -> null
-      - dns_opts                                    = [] -> null
-      - dns_search                                  = [] -> null
-      - entrypoint                                  = [
-          - "/docker-entrypoint.sh",
-        ] -> null
-      - env                                         = [] -> null
-      - group_add                                   = [] -> null
-      - hostname                                    = "ab62f6190066" -> null
-      - id                                          = "ab62f619006653c5dbd0918cbddb93b7ddbc6729e98bff10c2408016a38c788c" -> null
-      - image                                       = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99" -> null
-      - init                                        = false -> null
-      - ipc_mode                                    = "private" -> null
-      - log_driver                                  = "json-file" -> null
-      - log_opts                                    = {} -> null
-      - logs                                        = false -> null
-      - max_retry_count                             = 0 -> null
-      - memory                                      = 0 -> null
-      - memory_swap                                 = 0 -> null
-      - must_run                                    = true -> null
-      - name                                        = (sensitive value) -> null
-      - network_data                                = [
-          - {
-              - gateway                   = "172.17.0.1"
-              - global_ipv6_address       = ""
-              - global_ipv6_prefix_length = 0
-              - ip_address                = "172.17.0.2"
-              - ip_prefix_length          = 16
-              - ipv6_gateway              = ""
-              - mac_address               = "02:42:ac:11:00:02"
-              - network_name              = "bridge"
-            },
-        ] -> null
-      - network_mode                                = "default" -> null
-      - privileged                                  = false -> null
-      - publish_all_ports                           = false -> null
-      - read_only                                   = false -> null
-      - remove_volumes                              = true -> null
-      - restart                                     = "no" -> null
-      - rm                                          = false -> null
-      - runtime                                     = "runc" -> null
-      - security_opts                               = [] -> null
-      - shm_size                                    = 64 -> null
-      - start                                       = true -> null
-      - stdin_open                                  = false -> null
-      - stop_signal                                 = "SIGQUIT" -> null
-      - stop_timeout                                = 0 -> null
-      - storage_opts                                = {} -> null
-      - sysctls                                     = {} -> null
-      - tmpfs                                       = {} -> null
-      - tty                                         = false -> null
-      - wait                                        = false -> null
-      - wait_timeout                                = 60 -> null
-
-      - ports {
-          - external = 8000 -> null
-          - internal = 80 -> null
-          - ip       = "0.0.0.0" -> null
-          - protocol = "tcp" -> null
-        }
-    }
-
-  # docker_image.nginx will be destroyed
-  - resource "docker_image" "nginx" {
-      - id           = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx:latest" -> null                                                                                                        
-      - image_id     = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99" -> null
-      - keep_locally = true -> null
-      - name         = "nginx:latest" -> null
-      - repo_digest  = "nginx@sha256:32da30332506740a2f7c34d5dc70467b7f14ec67d912703568daff790ab3f755" -> null
-    }
-
-  # random_password.random_string will be destroyed
-  - resource "random_password" "random_string" {
-      - bcrypt_hash = (sensitive value) -> null
-      - id          = "none" -> null
-      - length      = 16 -> null
-      - lower       = true -> null
-      - min_lower   = 1 -> null
-      - min_numeric = 1 -> null
-      - min_special = 0 -> null
-      - min_upper   = 1 -> null
-      - number      = true -> null
-      - numeric     = true -> null
-      - result      = (sensitive value) -> null
-      - special     = false -> null
-      - upper       = true -> null
-    }
-
-Plan: 0 to add, 0 to change, 3 to destroy.
-
-Do you really want to destroy all resources?
-  Terraform will destroy all your managed infrastructure, as shown above.
-  There is no undo. Only 'yes' will be accepted to confirm.
-
-  Enter a value: yes
-
-docker_container.hello_world: Destroying... [id=ab62f619006653c5dbd0918cbddb93b7ddbc6729e98bff10c2408016a38c788c]
-docker_container.hello_world: Destruction complete after 1s
-docker_image.nginx: Destroying... [id=sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx:latest]
-random_password.random_string: Destroying... [id=none]
-docker_image.nginx: Destruction complete after 0s
-random_password.random_string: Destruction complete after 0s
-
+...
+...
+...
 Destroy complete! Resources: 3 destroyed.
 
 ┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
@@ -427,7 +307,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 keep_locally (Boolean) If true, then the Docker image won't be deleted on destroy operation. If this is false, it will delete the image from the docker local storage on destroy operation.
 ```
 - Так как в файле `main.tf` в параметрах `docker_image` указана строчка `keep_locally = true`, то при удалении локальный файл образа не удаляется. При `keep_locally = false` локальный образ удаляется.
-Моё предположение, связанно это с тем что локальный образ может быть специально подготовлен для развертывания необходимой инфраструктуры и является уникальным, а не скачан типовой образ с докер хаба.
+Моё предположение, связанно это с тем, что локальный образ может быть специально подготовлен для развертывания необходимой инфраструктуры и является уникальным, а не скачан типовой образ с докер хаба.
 
 ------
 
