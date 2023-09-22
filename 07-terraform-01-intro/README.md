@@ -307,7 +307,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 keep_locally (Boolean) If true, then the Docker image won't be deleted on destroy operation. If this is false, it will delete the image from the docker local storage on destroy operation.
 ```
 - Так как в файле `main.tf` в параметрах `docker_image` указана строчка `keep_locally = true`, то при удалении локальный файл образа не удаляется. При `keep_locally = false` локальный образ удаляется.
-Моё предположение, связанно это с тем, что локальный образ может быть специально подготовлен для развертывания необходимой инфраструктуры и является уникальным, а не скачан типовой образ с докер хаба.
+- Моё предположение, связанно это с тем, что локальный образ может быть специально подготовлен для развертывания необходимой инфраструктуры и является уникальным, а не скачан типовой образ с докер хаба.
 
 ------
 
