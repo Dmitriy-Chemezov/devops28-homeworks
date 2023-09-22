@@ -41,6 +41,53 @@ personal.auto.tfvars
 ```
 
 3. Выполните код проекта. Найдите  в state-файле секретное содержимое созданного ресурса **random_password**, пришлите в качестве ответа конкретный ключ и его значение.
+
+```
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
+└─$ terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # random_password.random_string will be created
+  + resource "random_password" "random_string" {
+      + bcrypt_hash = (sensitive value)
+      + id          = (known after apply)
+      + length      = 16
+      + lower       = true
+      + min_lower   = 1
+      + min_numeric = 1
+      + min_special = 0
+      + min_upper   = 1
+      + number      = true
+      + numeric     = true
+      + result      = (sensitive value)
+      + special     = false
+      + upper       = true
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+random_password.random_string: Creating...
+random_password.random_string: Creation complete after 0s [id=none]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+```
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/4.png)
+
+```
+"result": "rGTMoats5hKwFKbD",
+```
+
 4. Раскомментируйте блок кода, примерно расположенный на строчках 29–42 файла **main.tf**.
 Выполните команду ```terraform validate```. Объясните, в чём заключаются намеренно допущенные ошибки. Исправьте их.
 5. Выполните код. В качестве ответа приложите: исправленный фрагмент кода и вывод команды ```docker ps```.
