@@ -267,7 +267,303 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED              STAT
 
 6. Замените имя docker-контейнера в блоке кода на ```hello_world```. Не перепутайте имя контейнера и имя образа. Мы всё ещё продолжаем использовать name = "nginx:latest". Выполните команду ```terraform apply -auto-approve```.
 Объясните своими словами, в чём может быть опасность применения ключа  ```-auto-approve```. В качестве ответа дополнительно приложите вывод команды ```docker ps```.
-7. Уничтожьте созданные ресурсы с помощью **terraform**. Убедитесь, что все ресурсы удалены. Приложите содержимое файла **terraform.tfstate**. 
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/9.png)
+
+```
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
+└─$ terraform apply -auto-approve
+random_password.random_string: Refreshing state... [id=none]
+docker_image.nginx: Refreshing state... [id=sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx:latest]
+docker_container.nginx_test: Refreshing state... [id=2c622e0c50374b1fa9ace3bdd741418662bc80e1c1c16e61a035c01422384e98]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
+  - destroy
+
+Terraform will perform the following actions:
+
+  # docker_container.hello_world will be created
+  + resource "docker_container" "hello_world" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = (sensitive value)
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + ports {
+          + external = 8000
+          + internal = 80
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # docker_container.nginx_test will be destroyed
+  # (because docker_container.nginx_test is not in configuration)
+  - resource "docker_container" "nginx_test" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "nginx",
+          - "-g",
+          - "daemon off;",
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "/docker-entrypoint.sh",
+        ] -> null
+      - env                                         = [] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "2c622e0c5037" -> null
+      - id                                          = "2c622e0c50374b1fa9ace3bdd741418662bc80e1c1c16e61a035c01422384e98" -> null
+      - image                                       = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 0 -> null
+      - memory_swap                                 = 0 -> null
+      - must_run                                    = true -> null
+      - name                                        = (sensitive value) -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "172.17.0.1"
+              - global_ipv6_address       = ""
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "172.17.0.2"
+              - ip_prefix_length          = 16
+              - ipv6_gateway              = ""
+              - mac_address               = "02:42:ac:11:00:02"
+              - network_name              = "bridge"
+            },
+        ] -> null
+      - network_mode                                = "default" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "no" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_signal                                 = "SIGQUIT" -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+
+      - ports {
+          - external = 8000 -> null
+          - internal = 80 -> null
+          - ip       = "0.0.0.0" -> null
+          - protocol = "tcp" -> null
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+docker_container.nginx_test: Destroying... [id=2c622e0c50374b1fa9ace3bdd741418662bc80e1c1c16e61a035c01422384e98]
+docker_container.hello_world: Creating...
+docker_container.nginx_test: Destruction complete after 0s
+╷
+│ Error: Unable to create container: Error response from daemon: Conflict. The container name "/example_rGTMoats5hKwFKbD" is already in use by container "2c622e0c50374b1fa9ace3bdd741418662bc80e1c1c16e61a035c01422384e98". You have to remove (or rename) that container to be able to reuse that name.
+│ 
+│   with docker_container.hello_world,
+│   on main.tf line 29, in resource "docker_container" "hello_world":
+│   29: resource "docker_container" "hello_world" {
+│ 
+╵
+
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
+└─$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+                                                                       
+
+```
+
+- `terraform apply -auto-approve` Пропускает интерактивное утверждение плана перед применением и может уничтожить или нарушить работающую развернутую инфраструктуру.
+
+7. Уничтожьте созданные ресурсы с помощью **terraform**. Убедитесь, что все ресурсы удалены. Приложите содержимое файла **terraform.tfstate**.
+
+```
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
+└─$ terraform destroy            
+docker_image.nginx: Refreshing state... [id=sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx:latest]
+random_password.random_string: Refreshing state... [id=none]
+docker_container.hello_world: Refreshing state... [id=ab62f619006653c5dbd0918cbddb93b7ddbc6729e98bff10c2408016a38c788c]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # docker_container.hello_world will be destroyed
+  - resource "docker_container" "hello_world" {
+      - attach                                      = false -> null
+      - command                                     = [
+          - "nginx",
+          - "-g",
+          - "daemon off;",
+        ] -> null
+      - container_read_refresh_timeout_milliseconds = 15000 -> null
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      - entrypoint                                  = [
+          - "/docker-entrypoint.sh",
+        ] -> null
+      - env                                         = [] -> null
+      - group_add                                   = [] -> null
+      - hostname                                    = "ab62f6190066" -> null
+      - id                                          = "ab62f619006653c5dbd0918cbddb93b7ddbc6729e98bff10c2408016a38c788c" -> null
+      - image                                       = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99" -> null
+      - init                                        = false -> null
+      - ipc_mode                                    = "private" -> null
+      - log_driver                                  = "json-file" -> null
+      - log_opts                                    = {} -> null
+      - logs                                        = false -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 0 -> null
+      - memory_swap                                 = 0 -> null
+      - must_run                                    = true -> null
+      - name                                        = (sensitive value) -> null
+      - network_data                                = [
+          - {
+              - gateway                   = "172.17.0.1"
+              - global_ipv6_address       = ""
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "172.17.0.2"
+              - ip_prefix_length          = 16
+              - ipv6_gateway              = ""
+              - mac_address               = "02:42:ac:11:00:02"
+              - network_name              = "bridge"
+            },
+        ] -> null
+      - network_mode                                = "default" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      - read_only                                   = false -> null
+      - remove_volumes                              = true -> null
+      - restart                                     = "no" -> null
+      - rm                                          = false -> null
+      - runtime                                     = "runc" -> null
+      - security_opts                               = [] -> null
+      - shm_size                                    = 64 -> null
+      - start                                       = true -> null
+      - stdin_open                                  = false -> null
+      - stop_signal                                 = "SIGQUIT" -> null
+      - stop_timeout                                = 0 -> null
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - tty                                         = false -> null
+      - wait                                        = false -> null
+      - wait_timeout                                = 60 -> null
+
+      - ports {
+          - external = 8000 -> null
+          - internal = 80 -> null
+          - ip       = "0.0.0.0" -> null
+          - protocol = "tcp" -> null
+        }
+    }
+
+  # docker_image.nginx will be destroyed
+  - resource "docker_image" "nginx" {
+      - id           = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx:latest" -> null                                                                                                        
+      - image_id     = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99" -> null
+      - keep_locally = true -> null
+      - name         = "nginx:latest" -> null
+      - repo_digest  = "nginx@sha256:32da30332506740a2f7c34d5dc70467b7f14ec67d912703568daff790ab3f755" -> null
+    }
+
+  # random_password.random_string will be destroyed
+  - resource "random_password" "random_string" {
+      - bcrypt_hash = (sensitive value) -> null
+      - id          = "none" -> null
+      - length      = 16 -> null
+      - lower       = true -> null
+      - min_lower   = 1 -> null
+      - min_numeric = 1 -> null
+      - min_special = 0 -> null
+      - min_upper   = 1 -> null
+      - number      = true -> null
+      - numeric     = true -> null
+      - result      = (sensitive value) -> null
+      - special     = false -> null
+      - upper       = true -> null
+    }
+
+Plan: 0 to add, 0 to change, 3 to destroy.
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+docker_container.hello_world: Destroying... [id=ab62f619006653c5dbd0918cbddb93b7ddbc6729e98bff10c2408016a38c788c]
+docker_container.hello_world: Destruction complete after 1s
+docker_image.nginx: Destroying... [id=sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx:latest]
+random_password.random_string: Destroying... [id=none]
+docker_image.nginx: Destruction complete after 0s
+random_password.random_string: Destruction complete after 0s
+
+Destroy complete! Resources: 3 destroyed.
+
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
+└─$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+                                                                                                              
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-01/src]
+└─$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+```
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/10.png)
+
+
 8. Объясните, почему при этом не был удалён docker-образ **nginx:latest**. Ответ **обязательно** подкрепите строчкой из документации [**terraform провайдера docker**](https://docs.comcloud.xyz/providers/kreuzwerker/docker/latest/docs).  (ищите в классификаторе resource docker_image )
 
 
