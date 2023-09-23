@@ -326,47 +326,136 @@ shekeriev.
 
 ```
 ┌──(odin㉿sys-kali)-[~/my-ter-homeworks/virtualbox_terraform]
-└─$ terraform init   
+└─$ terraform init 
 
 Initializing the backend...
 
 Initializing provider plugins...
 - Finding shekeriev/virtualbox versions matching "0.0.4"...
 - Installing shekeriev/virtualbox v0.0.4...
-- Installed shekeriev/virtualbox v0.0.4 (unauthenticated)
+- Installed shekeriev/virtualbox v0.0.4 (self-signed, key ID DB61A398B319BB1B)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
 
 Terraform has created a lock file .terraform.lock.hcl to record the provider
 selections it made above. Include this file in your version control repository
 so that Terraform can guarantee to make the same selections by default when
 you run "terraform init" in the future.
 
-╷
-│ Warning: Incomplete lock file information for providers
-│ 
-│ Due to your customized provider installation methods, Terraform was forced to calculate lock file checksums
-│ locally for the following providers:
-│   - shekeriev/virtualbox
-│ 
-│ The current .terraform.lock.hcl file only includes checksums for linux_amd64, so Terraform running on
-│ another platform will fail to install these providers.
-│ 
-│ To calculate additional checksums for another platform, run:
-│   terraform providers lock -platform=linux_amd64
-│ (where linux_amd64 is the platform to generate)
-╵
-
 Terraform has been successfully initialized!
 
-You may now begin working with Terraform. Try running "terraform plan" to see                                 
-any changes that are required for your infrastructure. All Terraform commands                                 
-should now work.                                                                                              
-                                                                                                              
-If you ever set or change modules or backend configuration for Terraform,                                     
-rerun this command to reinitialize your working directory. If you forget, other                               
-commands will detect it and remind you to do so if necessary.
+You may now begin working with Terraform. Try running "terraform plan" to see                           
+any changes that are required for your infrastructure. All Terraform commands                           
+should now work.                                                                                        
+                                                                                                        
+If you ever set or change modules or backend configuration for Terraform,                               
+rerun this command to reinitialize your working directory. If you forget, other                         
+commands will detect it and remind you to do so if necessary.                                           
+                                                                                                        
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/virtualbox_terraform]
+└─$ terraform plan 
 
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
 
+Terraform will perform the following actions:
+
+  # virtualbox_vm.vm1 will be created
+  + resource "virtualbox_vm" "vm1" {
+      + cpus   = 1
+      + id     = (known after apply)
+      + image  = "https://app.vagrantup.com/shekeriev/boxes/debian-11/versions/0.2/providers/virtualbox.box"
+      + memory = "512 mib"
+      + name   = "debian-11"
+      + status = "running"
+
+      + network_adapter {
+          + device                 = "IntelPro1000MTDesktop"
+          + host_interface         = "vboxnet1"
+          + ipv4_address           = (known after apply)
+          + ipv4_address_available = (known after apply)
+          + mac_address            = (known after apply)
+          + status                 = (known after apply)
+          + type                   = "hostonly"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + IPAddress = (known after apply)
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly
+these actions if you run "terraform apply" now.
+                                                                                                        
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/virtualbox_terraform]
+└─$ terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # virtualbox_vm.vm1 will be created
+  + resource "virtualbox_vm" "vm1" {
+      + cpus   = 1
+      + id     = (known after apply)
+      + image  = "https://app.vagrantup.com/shekeriev/boxes/debian-11/versions/0.2/providers/virtualbox.box"
+      + memory = "512 mib"
+      + name   = "debian-11"
+      + status = "running"
+
+      + network_adapter {
+          + device                 = "IntelPro1000MTDesktop"
+          + host_interface         = "vboxnet1"
+          + ipv4_address           = (known after apply)
+          + ipv4_address_available = (known after apply)
+          + mac_address            = (known after apply)
+          + status                 = (known after apply)
+          + type                   = "hostonly"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + IPAddress = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+virtualbox_vm.vm1: Creating...
+virtualbox_vm.vm1: Still creating... [10s elapsed]
+virtualbox_vm.vm1: Still creating... [20s elapsed]
+virtualbox_vm.vm1: Still creating... [30s elapsed]
+virtualbox_vm.vm1: Still creating... [40s elapsed]
+virtualbox_vm.vm1: Still creating... [50s elapsed]
+virtualbox_vm.vm1: Still creating... [1m0s elapsed]
+virtualbox_vm.vm1: Still creating... [1m10s elapsed]
+virtualbox_vm.vm1: Still creating... [1m20s elapsed]
+virtualbox_vm.vm1: Still creating... [1m30s elapsed]
+virtualbox_vm.vm1: Still creating... [1m40s elapsed]
+virtualbox_vm.vm1: Still creating... [1m50s elapsed]
+virtualbox_vm.vm1: Still creating... [2m0s elapsed]
+virtualbox_vm.vm1: Creation complete after 2m5s [id=04a32e4f-8bbf-422a-be46-b74c1f3cfcdc]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.                                             
+                                                                                                        
+Outputs:                                                                                                
+                                                                                                        
+IPAddress = "192.168.57.3"
 ```
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/07-terraform-01-intro/12.png)
 
 ------
 
