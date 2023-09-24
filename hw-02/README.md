@@ -301,6 +301,9 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 В качестве решения приложите вывод значений ip-адресов команды ```terraform output```.
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/9.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/10.png)
 
 ### Задание 5
 
