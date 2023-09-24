@@ -313,7 +313,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/11.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/12.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/13.png)
 
 ### Задание 6
 
