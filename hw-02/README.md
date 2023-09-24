@@ -185,6 +185,11 @@ yandex_compute_instance.platform: Creating...
 2. Объявите нужные переменные в файле variables.tf, обязательно указывайте тип переменной. Заполните их **default** прежними значениями из main.tf. 
 3. Проверьте terraform plan. Изменений быть не должно. 
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/3.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/4.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/5.png)
 
 ### Задание 3
 
