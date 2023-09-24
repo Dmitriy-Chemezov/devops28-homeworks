@@ -292,6 +292,8 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/7.png)
 
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/8.png)
+
 ### Задание 4
 
 1. Объявите в файле outputs.tf output типа map, содержащий { instance_name = external_ip } для каждой из ВМ.
