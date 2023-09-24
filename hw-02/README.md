@@ -196,7 +196,101 @@ yandex_compute_instance.platform: Creating...
 1. Создайте в корне проекта файл 'vms_platform.tf' . Перенесите в него все переменные первой ВМ.
 2. Скопируйте блок ресурса и создайте с его помощью вторую ВМ в файле main.tf: **"netology-develop-platform-db"** ,  cores  = 2, memory = 2, core_fraction = 20. Объявите её переменные с префиксом **vm_db_** в том же файле ('vms_platform.tf').
 3. Примените изменения.
+```
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-02/src]
+└─$ terraform apply
+data.yandex_compute_image.ubuntu: Reading...
+yandex_vpc_network.develop: Refreshing state... [id=enpk042n51epb8qd5fo1]
+data.yandex_compute_image.ubuntu: Read complete after 1s [id=fd8dfofgv8k45mqv25nq]
+yandex_vpc_subnet.develop: Refreshing state... [id=e9b0aahst4kr4jg0mutp]
+yandex_compute_instance.platform: Refreshing state... [id=fhm0mucjthntumc26kbb]
 
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.vm-db will be created
+  + resource "yandex_compute_instance" "vm-db" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "serial-port-enable" = "1"
+          + "ssh-keys"           = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvJ1n3vaG/17ihpHrKFebxTdP1fWhLCaPm1HCU4uWG5 spec1kkgo@mail.ru"
+        }
+      + name                      = "netology-develop-platform-db"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v2"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8dfofgv8k45mqv25nq"
+              + name        = (known after apply)
+              + size        = (known after apply)
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = "e9b0aahst4kr4jg0mutp"
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 2
+        }
+
+      + scheduling_policy {
+          + preemptible = true
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+yandex_compute_instance.vm-db: Creating...
+yandex_compute_instance.vm-db: Still creating... [10s elapsed]
+yandex_compute_instance.vm-db: Still creating... [20s elapsed]
+yandex_compute_instance.vm-db: Still creating... [30s elapsed]
+yandex_compute_instance.vm-db: Creation complete after 36s [id=fhmejuasg26ommfvpplj]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed. 
+```
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/6.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/7.png)
 
 ### Задание 4
 
