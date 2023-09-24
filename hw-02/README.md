@@ -28,6 +28,130 @@ https://console.cloud.yandex.ru/folders/<ваш cloud_id>/vpc/security-groups.
 2. Переименуйте файл personal.auto.tfvars_example в personal.auto.tfvars. Заполните переменные: идентификаторы облака, токен доступа. Благодаря .gitignore этот файл не попадёт в публичный репозиторий. **Вы можете выбрать иной способ безопасно передать секретные данные в terraform.**
 3. Сгенерируйте или используйте свой текущий ssh-ключ. Запишите его открытую часть в переменную **vms_ssh_root_key**.
 4. Инициализируйте проект, выполните код. Исправьте намеренно допущенные синтаксические ошибки. Ищите внимательно, посимвольно. Ответьте, в чём заключается их суть.
+```
+┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-02/src]
+└─$ terraform apply
+data.yandex_compute_image.ubuntu: Reading...
+data.yandex_compute_image.ubuntu: Read complete after 1s [id=fd8dfofgv8k45mqv25nq]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.platform will be created
+  + resource "yandex_compute_instance" "platform" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "serial-port-enable" = "1"
+          + "ssh-keys"           = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvJ1n3vaG/17ihpHrKFebxTdP1fWhLCaPm1HCU4uWG5 spec1kkgo@mail.ru"
+        }
+      + name                      = "netology-develop-platform-web"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standart-v4"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8dfofgv8k45mqv25nq"
+              + name        = (known after apply)
+              + size        = (known after apply)
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 5
+          + cores         = 1
+          + memory        = 1
+        }
+
+      + scheduling_policy {
+          + preemptible = true
+        }
+    }
+
+  # yandex_vpc_network.develop will be created
+  + resource "yandex_vpc_network" "develop" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "develop"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_subnet.develop will be created
+  + resource "yandex_vpc_subnet" "develop" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "develop"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+yandex_vpc_network.develop: Creating...
+yandex_vpc_network.develop: Creation complete after 2s [id=enpk042n51epb8qd5fo1]
+yandex_vpc_subnet.develop: Creating...
+yandex_vpc_subnet.develop: Creation complete after 1s [id=e9b0aahst4kr4jg0mutp]
+yandex_compute_instance.platform: Creating...
+╷
+│ Error: Error while requesting API to create instance: server-request-id = 73ec10e2-e925-4b53-a287-2d238c54d5e6 server-trace-id = e781ce4c5602de13:ff8244bf39c6e51b:e781ce4c5602de13:1 client-request-id = 5d7cd803-be4e-4e0f-ad43-6bb09047a274 client-trace-id = fb693f29-2405-4925-9d43-89c49f439e87 rpc error: code = FailedPrecondition desc = Platform "standart-v4" not found
+│ 
+│   with yandex_compute_instance.platform,
+│   on main.tf line 15, in resource "yandex_compute_instance" "platform":
+│   15: resource "yandex_compute_instance" "platform" {
+
+```
+Развертывание инстанса показало, что в коде указан не верный стандарт платформы. У Яндекса существует 3 стандарта, при этом у каждого стандарта существуют минимальные требования к развертыванию в плане количества процессоров и используемой памяти.
+Для своей задачи я выбрал второй стандарт с 2 процессорами и 1 Gb памяти и соответсвенно в main.tf я так же исправил количество cpu на 2 и изменил параметр `platform_id = "standart-v2"` на параметр `platform_id = "standard-v2"`.
+
+
 5. Ответьте, как в процессе обучения могут пригодиться параметры ```preemptible = true``` и ```core_fraction=5``` в параметрах ВМ. Ответ в документации Yandex Cloud.
 
 В качестве решения приложите:
