@@ -30,9 +30,9 @@ https://console.cloud.yandex.ru/folders/<ваш cloud_id>/vpc/security-groups.
 4. Инициализируйте проект, выполните код. Исправьте намеренно допущенные синтаксические ошибки. Ищите внимательно, посимвольно. Ответьте, в чём заключается их суть.
 ```
 ┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-02/src]
-└─$ terraform apply
+└─$ terraform apply  
 data.yandex_compute_image.ubuntu: Reading...
-data.yandex_compute_image.ubuntu: Read complete after 1s [id=fd8dfofgv8k45mqv25nq]
+data.yandex_compute_image.ubuntu: Read complete after 1s [id=fd8o6khjbdv3f1suqf69]
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are
 indicated with the following symbols:
@@ -68,7 +68,7 @@ Terraform will perform the following actions:
           + initialize_params {
               + block_size  = (known after apply)
               + description = (known after apply)
-              + image_id    = "fd8dfofgv8k45mqv25nq"
+              + image_id    = "fd8o6khjbdv3f1suqf69"
               + name        = (known after apply)
               + size        = (known after apply)
               + snapshot_id = (known after apply)
@@ -136,12 +136,12 @@ Do you want to perform these actions?
   Enter a value: yes
 
 yandex_vpc_network.develop: Creating...
-yandex_vpc_network.develop: Creation complete after 2s [id=enpk042n51epb8qd5fo1]
+yandex_vpc_network.develop: Creation complete after 1s [id=enparqjamabnpqrj82d1]
 yandex_vpc_subnet.develop: Creating...
-yandex_vpc_subnet.develop: Creation complete after 1s [id=e9b0aahst4kr4jg0mutp]
+yandex_vpc_subnet.develop: Creation complete after 1s [id=e9bo0jqtoag4hlf879ov]
 yandex_compute_instance.platform: Creating...
 ╷
-│ Error: Error while requesting API to create instance: server-request-id = 73ec10e2-e925-4b53-a287-2d238c54d5e6 server-trace-id = e781ce4c5602de13:ff8244bf39c6e51b:e781ce4c5602de13:1 client-request-id = 5d7cd803-be4e-4e0f-ad43-6bb09047a274 client-trace-id = fb693f29-2405-4925-9d43-89c49f439e87 rpc error: code = FailedPrecondition desc = Platform "standart-v4" not found
+│ Error: Error while requesting API to create instance: server-request-id = 4386e6a3-df5e-418a-a816-5febe60a3433 server-trace-id = 499f8750069ee94e:72588504c141c699:499f8750069ee94e:1 client-request-id = 5687d50a-f3c6-4e2b-9e86-87878bbcc78e client-trace-id = 112b0e01-ce52-498a-862a-85b7f0ced53d rpc error: code = FailedPrecondition desc = Platform "standart-v4" not found
 │ 
 │   with yandex_compute_instance.platform,
 │   on main.tf line 15, in resource "yandex_compute_instance" "platform":
@@ -149,7 +149,7 @@ yandex_compute_instance.platform: Creating...
 
 ```
 Развертывание инстанса показало, что в коде указан не верный стандарт платформы. У Яндекса существует 3 стандарта, при этом у каждого стандарта существуют минимальные требования к развертыванию в плане количества процессоров и используемой памяти.
-Для своей задачи я выбрал второй стандарт с 2 процессорами и 1 Gb памяти и соответсвенно в main.tf я так же исправил количество cpu на 2 и изменил параметр `platform_id = "standart-v2"` на параметр `platform_id = "standard-v2"`.
+Для своей задачи я выбрал второй стандарт v2 с 2 процессорами и 1 Gb памяти и соответсвенно в main.tf я так же исправил количество cpu на 2 и изменил параметр `platform_id = "standart-v2"` на параметр `platform_id = "standard-v2"`.
 
 
 5. Ответьте, как в процессе обучения могут пригодиться параметры ```preemptible = true``` и ```core_fraction=5``` в параметрах ВМ. Ответ в документации Yandex Cloud.
@@ -172,10 +172,10 @@ yandex_compute_instance.platform: Creating...
 - скриншот успешного подключения к консоли ВМ через ssh. К OS ubuntu необходимо подключаться под пользователем ubuntu: "ssh ubuntu@vm_ip_address";
 - ответы на вопросы.
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/1.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/20.png)
 
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/2.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/21.png)
 
 
 ### Задание 2
@@ -185,11 +185,11 @@ yandex_compute_instance.platform: Creating...
 2. Объявите нужные переменные в файле variables.tf, обязательно указывайте тип переменной. Заполните их **default** прежними значениями из main.tf. 
 3. Проверьте terraform plan. Изменений быть не должно. 
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/3.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/22.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/4.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/23.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/5.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/24.png)
 
 ### Задание 3
 
@@ -198,12 +198,12 @@ yandex_compute_instance.platform: Creating...
 3. Примените изменения.
 ```
 ┌──(odin㉿sys-kali)-[~/my-ter-homeworks/dz-ter-02/src]
-└─$ terraform apply
+└─$ terraform apply         
 data.yandex_compute_image.ubuntu: Reading...
-yandex_vpc_network.develop: Refreshing state... [id=enpk042n51epb8qd5fo1]
-data.yandex_compute_image.ubuntu: Read complete after 1s [id=fd8dfofgv8k45mqv25nq]
-yandex_vpc_subnet.develop: Refreshing state... [id=e9b0aahst4kr4jg0mutp]
-yandex_compute_instance.platform: Refreshing state... [id=fhm0mucjthntumc26kbb]
+yandex_vpc_network.develop: Refreshing state... [id=enparqjamabnpqrj82d1]
+data.yandex_compute_image.ubuntu: Read complete after 1s [id=fd8o6khjbdv3f1suqf69]
+yandex_vpc_subnet.develop: Refreshing state... [id=e9bo0jqtoag4hlf879ov]
+yandex_compute_instance.platform_web: Refreshing state... [id=fhm5s1br5pfqto0iump6]
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are
 indicated with the following symbols:
@@ -211,8 +211,8 @@ indicated with the following symbols:
 
 Terraform will perform the following actions:
 
-  # yandex_compute_instance.vm-db will be created
-  + resource "yandex_compute_instance" "vm-db" {
+  # yandex_compute_instance.platform_db will be created
+  + resource "yandex_compute_instance" "platform_db" {
       + created_at                = (known after apply)
       + folder_id                 = (known after apply)
       + fqdn                      = (known after apply)
@@ -239,7 +239,7 @@ Terraform will perform the following actions:
           + initialize_params {
               + block_size  = (known after apply)
               + description = (known after apply)
-              + image_id    = "fd8dfofgv8k45mqv25nq"
+              + image_id    = "fd8o6khjbdv3f1suqf69"
               + name        = (known after apply)
               + size        = (known after apply)
               + snapshot_id = (known after apply)
@@ -258,7 +258,7 @@ Terraform will perform the following actions:
           + nat_ip_address     = (known after apply)
           + nat_ip_version     = (known after apply)
           + security_group_ids = (known after apply)
-          + subnet_id          = "e9b0aahst4kr4jg0mutp"
+          + subnet_id          = "e9bo0jqtoag4hlf879ov"
         }
 
       + resources {
@@ -280,19 +280,23 @@ Do you want to perform these actions?
 
   Enter a value: yes
 
-yandex_compute_instance.vm-db: Creating...
-yandex_compute_instance.vm-db: Still creating... [10s elapsed]
-yandex_compute_instance.vm-db: Still creating... [20s elapsed]
-yandex_compute_instance.vm-db: Still creating... [30s elapsed]
-yandex_compute_instance.vm-db: Creation complete after 36s [id=fhmejuasg26ommfvpplj]
+yandex_compute_instance.platform_db: Creating...
+yandex_compute_instance.platform_db: Still creating... [10s elapsed]
+yandex_compute_instance.platform_db: Still creating... [20s elapsed]
+yandex_compute_instance.platform_db: Still creating... [30s elapsed]
+yandex_compute_instance.platform_db: Still creating... [40s elapsed]
+yandex_compute_instance.platform_db: Still creating... [50s elapsed]
+yandex_compute_instance.platform_db: Still creating... [1m0s elapsed]
+yandex_compute_instance.platform_db: Creation complete after 1m1s [id=fhmq2j0lnu3v2pbibnfk]
 
-Apply complete! Resources: 1 added, 0 changed, 0 destroyed. 
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+ 
 ```
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/6.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/25.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/7.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/26.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/8.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/27.png)
 
 ### Задание 4
 
@@ -301,9 +305,9 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 В качестве решения приложите вывод значений ip-адресов команды ```terraform output```.
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/9.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/28.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/10.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/29.png)
 
 ### Задание 5
 
@@ -311,9 +315,9 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 2. Замените переменные с именами ВМ из файла variables.tf на созданные вами local-переменные.
 3. Примените изменения.
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/11.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/30.png)
 
-![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/13.png)
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/31.png)
 
 ### Задание 6
 
@@ -321,6 +325,16 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 2. Также поступите с блоком **metadata {serial-port-enable, ssh-keys}**, эта переменная должна быть общая для всех ваших ВМ.
 3. Найдите и удалите все более не используемые переменные проекта.
 4. Проверьте terraform plan. Изменений быть не должно.
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/32.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/33.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/34.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/35.png)
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-02/36.png)
 
 ------
 
