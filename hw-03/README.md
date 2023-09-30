@@ -33,6 +33,235 @@
 
 Приложите скриншот входящих правил «Группы безопасности» в ЛК Yandex Cloud или скриншот отказа в предоставлении доступа к preview-версии.
 
+```
+┌──(odin㉿asustuf-kali)-[~/dz-hw-03/src]
+└─$  terraform plan 
+
+Terraform used the selected providers to generate the following execution plan. Resource
+actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_vpc_network.develop will be created
+  + resource "yandex_vpc_network" "develop" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "develop"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_security_group.example will be created
+  + resource "yandex_vpc_security_group" "example" {
+      + created_at = (known after apply)
+      + folder_id  = "b1gekisdb0s5l635ec9n"
+      + id         = (known after apply)
+      + labels     = (known after apply)
+      + name       = "example_dynamic"
+      + network_id = (known after apply)
+      + status     = (known after apply)
+
+      + egress {
+          + description    = "разрешить весь исходящий трафик"
+          + from_port      = 0
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = -1
+          + protocol       = "TCP"
+          + to_port        = 65365
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+
+      + ingress {
+          + description    = "разрешить входящий  http"
+          + from_port      = -1
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = 80
+          + protocol       = "TCP"
+          + to_port        = -1
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+      + ingress {
+          + description    = "разрешить входящий https"
+          + from_port      = -1
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = 443
+          + protocol       = "TCP"
+          + to_port        = -1
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+      + ingress {
+          + description    = "разрешить входящий ssh"
+          + from_port      = -1
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = 22
+          + protocol       = "TCP"
+          + to_port        = -1
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+    }
+
+  # yandex_vpc_subnet.develop will be created
+  + resource "yandex_vpc_subnet" "develop" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "develop"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to
+take exactly these actions if you run "terraform apply" now.
+                                                                                            
+┌──(odin㉿asustuf-kali)-[~/dz-hw-03/src]
+└─$  terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource
+actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_vpc_network.develop will be created
+  + resource "yandex_vpc_network" "develop" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "develop"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_security_group.example will be created
+  + resource "yandex_vpc_security_group" "example" {
+      + created_at = (known after apply)
+      + folder_id  = "b1gekisdb0s5l635ec9n"
+      + id         = (known after apply)
+      + labels     = (known after apply)
+      + name       = "example_dynamic"
+      + network_id = (known after apply)
+      + status     = (known after apply)
+
+      + egress {
+          + description    = "разрешить весь исходящий трафик"
+          + from_port      = 0
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = -1
+          + protocol       = "TCP"
+          + to_port        = 65365
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+
+      + ingress {
+          + description    = "разрешить входящий  http"
+          + from_port      = -1
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = 80
+          + protocol       = "TCP"
+          + to_port        = -1
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+      + ingress {
+          + description    = "разрешить входящий https"
+          + from_port      = -1
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = 443
+          + protocol       = "TCP"
+          + to_port        = -1
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+      + ingress {
+          + description    = "разрешить входящий ssh"
+          + from_port      = -1
+          + id             = (known after apply)
+          + labels         = (known after apply)
+          + port           = 22
+          + protocol       = "TCP"
+          + to_port        = -1
+          + v4_cidr_blocks = [
+              + "0.0.0.0/0",
+            ]
+          + v6_cidr_blocks = []
+        }
+    }
+
+  # yandex_vpc_subnet.develop will be created
+  + resource "yandex_vpc_subnet" "develop" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "develop"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+yandex_vpc_network.develop: Creating...
+yandex_vpc_network.develop: Creation complete after 5s [id=enpnn1jp2k6m2jb7pms5]
+yandex_vpc_subnet.develop: Creating...
+yandex_vpc_security_group.example: Creating...
+yandex_vpc_subnet.develop: Creation complete after 1s [id=e9bub5tmq5nbrlqmlbhe]
+yandex_vpc_security_group.example: Creation complete after 2s [id=enpivb7m3utr7mmd2g3s]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+```
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-03/1.png)
+
 ------
 
 ### Задание 2
