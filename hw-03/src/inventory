@@ -1,0 +1,15 @@
+[webservers]
+
+netology-web-1   ansible_host=158.160.62.4
+
+netology-web-2   ansible_host=130.193.48.93
+
+[databases]
+
+main   ansible_host=158.160.32.168
+
+replica   ansible_host=158.160.50.108
+
+[storage]
+  
+storage   ansible_host=158.160.38.191
