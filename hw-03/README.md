@@ -872,8 +872,17 @@ Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
 Используйте функцию tepmplatefile и файл-шаблон для создания ansible inventory-файла из лекции.
 Готовый код возьмите из демонстрации к лекции [**demonstration2**](https://github.com/netology-code/ter-homeworks/tree/main/03/demonstration2).
 Передайте в него в качестве переменных группы виртуальных машин из задания 2.1, 2.2 и 3.2, т. е. 5 ВМ.
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-03/11.png)
+
 2. Инвентарь должен содержать 3 группы [webservers], [databases], [storage] и быть динамическим, т. е. обработать как группу из 2-х ВМ, так и 999 ВМ.
-4. Выполните код. Приложите скриншот получившегося файла. 
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-03/12.png)
+
+3. Выполните код. Приложите скриншот получившегося файла.
+
+![](https://github.com/Dmitriy-Chemezov/devops28-homeworks/blob/main/hw-03/13.png)
+
 
 Для общего зачёта создайте в вашем GitHub-репозитории новую ветку terraform-03. Закоммитьте в эту ветку свой финальный код проекта, пришлите ссылку на коммит.   
 **Удалите все созданные ресурсы**.
