@@ -112,6 +112,212 @@ No outputs.
 4. Импортируйте всё обратно. Проверьте terraform plan. Изменений быть не должно.
 Приложите список выполненных команд и скриншоты процессы.
 
+```
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state list                                                           
+data.template_file.cloudinit
+module.test-vm.data.yandex_compute_image.my_image
+module.test-vm.yandex_compute_instance.vm[0]
+module.vpc_dev.yandex_vpc_network.develop
+module.vpc_dev.yandex_vpc_subnet.develop
+
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state show 'module.vpc_dev.yandex_vpc_network.develop' >> state_commands.md
+                                                                                                      
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state show 'module.vpc_dev.yandex_vpc_subnet.develop' >> state_commands.md
+
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state show 'module.test-vm.yandex_compute_instance.vm[0]' >> state_commands.md 
+                                                                                                      
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state rm module.test-vm.yandex_compute_instance.vm[0]            
+Removed module.test-vm.yandex_compute_instance.vm[0]
+Successfully removed 1 resource instance(s).
+                                                                                                      
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state rm module.vpc_dev.yandex_vpc_network.develop                       
+Removed module.vpc_dev.yandex_vpc_network.develop
+Successfully removed 1 resource instance(s).
+                                                                                                      
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state rm module.vpc_dev.yandex_vpc_subnet.develop                          
+Removed module.vpc_dev.yandex_vpc_subnet.develop
+Successfully removed 1 resource instance(s).
+                                                                                                      
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform state list                                                                 
+data.template_file.cloudinit
+module.test-vm.data.yandex_compute_image.my_image
+
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform import 'module.vpc_dev.yandex_vpc_network.develop' enpi56n8sscad5ieisv8   
+╷
+│ Warning: Version constraints inside provider configuration blocks are deprecated
+│ 
+│   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+│    2:   version = "2.2.0"
+│ 
+│ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration
+│ block, but that is now deprecated and will be removed in a future version of Terraform. To silence
+│ this warning, move the provider version constraint into the required_providers block.
+╵
+
+data.template_file.cloudinit: Reading...
+data.template_file.cloudinit: Read complete after 0s [id=d3b1034cd577c7ab3f8edb4d7bb0b24372b8272a575f73b5bf12d7e0e6e0abfa]
+module.vpc_dev.yandex_vpc_network.develop: Importing from ID "enpi56n8sscad5ieisv8"...
+module.test-vm.data.yandex_compute_image.my_image: Reading...
+module.vpc_dev.yandex_vpc_network.develop: Import prepared!
+  Prepared yandex_vpc_network for import
+module.vpc_dev.yandex_vpc_network.develop: Refreshing state... [id=enpi56n8sscad5ieisv8]
+module.test-vm.data.yandex_compute_image.my_image: Read complete after 1s [id=fd8ecgtorub9r4609man]
+
+Import successful!                                                                                    
+                                                                                                      
+The resources that were imported are shown above. These resources are now in                          
+your Terraform state and will henceforth be managed by Terraform.                                     
+                                                                                                      
+╷
+│ Warning: Version constraints inside provider configuration blocks are deprecated
+│ 
+│   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+│    2:   version = "2.2.0"
+│ 
+│ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration
+│ block, but that is now deprecated and will be removed in a future version of Terraform. To silence
+│ this warning, move the provider version constraint into the required_providers block.
+│ 
+│ (and one more similar warning elsewhere)
+╵
+
+                                                                                                      
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform import 'module.vpc_dev.yandex_vpc_subnet.develop' e9btvhgomn2mafdpnrdn 
+╷
+│ Warning: Version constraints inside provider configuration blocks are deprecated
+│ 
+│   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+│    2:   version = "2.2.0"
+│ 
+│ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration
+│ block, but that is now deprecated and will be removed in a future version of Terraform. To silence
+│ this warning, move the provider version constraint into the required_providers block.
+╵
+
+data.template_file.cloudinit: Reading...
+data.template_file.cloudinit: Read complete after 0s [id=d3b1034cd577c7ab3f8edb4d7bb0b24372b8272a575f73b5bf12d7e0e6e0abfa]
+module.test-vm.data.yandex_compute_image.my_image: Reading...
+module.vpc_dev.yandex_vpc_subnet.develop: Importing from ID "e9btvhgomn2mafdpnrdn"...
+module.vpc_dev.yandex_vpc_subnet.develop: Import prepared!
+  Prepared yandex_vpc_subnet for import
+module.vpc_dev.yandex_vpc_subnet.develop: Refreshing state... [id=e9btvhgomn2mafdpnrdn]
+module.test-vm.data.yandex_compute_image.my_image: Read complete after 1s [id=fd8ecgtorub9r4609man]
+
+Import successful!                                                                                    
+                                                                                                      
+The resources that were imported are shown above. These resources are now in                          
+your Terraform state and will henceforth be managed by Terraform.                                     
+                                                                                                      
+╷
+│ Warning: Version constraints inside provider configuration blocks are deprecated
+│ 
+│   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+│    2:   version = "2.2.0"
+│ 
+│ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration
+│ block, but that is now deprecated and will be removed in a future version of Terraform. To silence
+│ this warning, move the provider version constraint into the required_providers block.
+│ 
+│ (and one more similar warning elsewhere)
+╵
+
+                                                                                                      
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform import 'module.test-vm.yandex_compute_instance.vm[0]' fhmsv2deip8e5ncmmj6g 
+╷
+│ Warning: Version constraints inside provider configuration blocks are deprecated
+│ 
+│   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+│    2:   version = "2.2.0"
+│ 
+│ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration
+│ block, but that is now deprecated and will be removed in a future version of Terraform. To silence
+│ this warning, move the provider version constraint into the required_providers block.
+╵
+
+data.template_file.cloudinit: Reading...
+data.template_file.cloudinit: Read complete after 0s [id=d3b1034cd577c7ab3f8edb4d7bb0b24372b8272a575f73b5bf12d7e0e6e0abfa]
+module.test-vm.data.yandex_compute_image.my_image: Reading...
+module.test-vm.data.yandex_compute_image.my_image: Read complete after 0s [id=fd8ecgtorub9r4609man]
+module.test-vm.yandex_compute_instance.vm[0]: Importing from ID "fhmsv2deip8e5ncmmj6g"...
+module.test-vm.yandex_compute_instance.vm[0]: Import prepared!
+  Prepared yandex_compute_instance for import
+module.test-vm.yandex_compute_instance.vm[0]: Refreshing state... [id=fhmsv2deip8e5ncmmj6g]
+
+Import successful!                                                                                    
+                                                                                                      
+The resources that were imported are shown above. These resources are now in                          
+your Terraform state and will henceforth be managed by Terraform.                                     
+                                                                                                      
+╷
+│ Warning: Version constraints inside provider configuration blocks are deprecated
+│ 
+│   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+│    2:   version = "2.2.0"
+│ 
+│ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration
+│ block, but that is now deprecated and will be removed in a future version of Terraform. To silence
+│ this warning, move the provider version constraint into the required_providers block.
+│ 
+│ (and one more similar warning elsewhere)
+╵
+┌──(odin㉿asusvivo)-[~/dz-hw-04/src]
+└─$ terraform plan                                                                 
+data.template_file.cloudinit: Reading...
+data.template_file.cloudinit: Read complete after 0s [id=d3b1034cd577c7ab3f8edb4d7bb0b24372b8272a575f73b5bf12d7e0e6e0abfa]
+module.test-vm.data.yandex_compute_image.my_image: Reading...
+module.vpc_dev.yandex_vpc_network.develop: Refreshing state... [id=enpi56n8sscad5ieisv8]
+module.test-vm.data.yandex_compute_image.my_image: Read complete after 1s [id=fd8ecgtorub9r4609man]
+module.vpc_dev.yandex_vpc_subnet.develop: Refreshing state... [id=e9btvhgomn2mafdpnrdn]
+module.test-vm.yandex_compute_instance.vm[0]: Refreshing state... [id=fhmsv2deip8e5ncmmj6g]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.test-vm.yandex_compute_instance.vm[0] will be updated in-place
+  ~ resource "yandex_compute_instance" "vm" {
+      + allow_stopping_for_update = true
+        id                        = "fhmsv2deip8e5ncmmj6g"
+        name                      = "develop-web-0"
+        # (11 unchanged attributes hidden)
+
+      - timeouts {}
+
+        # (6 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+╷
+│ Warning: Version constraints inside provider configuration blocks are deprecated
+│ 
+│   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+│    2:   version = "2.2.0"
+│ 
+│ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration
+│ block, but that is now deprecated and will be removed in a future version of Terraform. To silence
+│ this warning, move the provider version constraint into the required_providers block.
+╵
+
+───────────────────────────────────────────────────────────────────────────────────────────────────── 
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly
+these actions if you run "terraform apply" now.
+
+```
+
 ## Дополнительные задания (со звёздочкой*)
 
 **Настоятельно рекомендуем выполнять все задания со звёздочкой.**   Они помогут глубже разобраться в материале.   
